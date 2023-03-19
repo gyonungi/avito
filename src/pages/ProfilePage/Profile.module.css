@@ -1,0 +1,236 @@
+.mainContainer {
+    max-width: 1178px;
+    margin: 0 auto;
+    padding: 0px 5px;
+  }
+
+  .mainCenterBlock {
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .mainMenu {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 11px 0;
+    padding: 43px 5px 77px;
+  }
+
+  .menuLogoLink {
+    width: 54;
+    height: 50px;
+  }
+
+  .menuLogoImg {
+    width: 54px;
+    height: auto;
+  }
+  
+  .menuForm {
+    margin-left: 60px;
+    max-width: 1044px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .menuBtn {
+    width: 241px;
+    height: 50px;
+    background-color: #009EE4;
+    border: 1px solid #009EE4;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1;
+    color: #FFFFFF;
+  }
+
+  .menuBtn:hover {
+    background-color: #0080C1;
+  }
+
+  .mainH2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 42px;
+    color: #000000;
+    margin-bottom: 30px;
+  }
+
+  .mainProfile {
+    width: 100%;
+    padding: 0 0 70px;
+  }
+
+  .profileContent {
+    max-width: 834px;
+  }
+
+  .profileTitle {
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 70px;
+    font-weight: 500;
+    color: #000000;
+  }
+  
+  .profileSettings {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: top;
+        -ms-flex-align: top;
+            align-items: top;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .settingsLeft {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-right: 43px;
+  }
+
+  .settingsImg {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background-color: #F0F0F0;
+  }
+
+  .settingsImg img {
+    width: 100%;
+    height: auto;
+    display: block;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  
+  .settingsChangePhoto {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 24px;
+    color: #009EE4;
+  }
+
+  .settingsRight {
+    width: 630px;
+  }
+  
+  .settingsForm {
+    width: 630px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .settingsForm label {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: #C4C4C4;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .settingsForm input {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    padding: 13px 19px;
+  }
+
+  .settingsForm input:-ms-input-placeholder {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .settingsForm input::-ms-input-placeholder {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .settingsForm input::placeholder {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+
+  .settingsDiv {
+    display: inline-block;
+    margin: 0 7px 20px;
+  }
+
+  .settingsFName, .settingsLName, .settingsCity {
+    width: 300px;
+  }
+
+  .settingsPhone {
+    width: 614px;
+  }
+  
+  .settingsBtn {
+    font-size: 16px;
+    line-height: 1;
+    color: #FFFFFF;
+    width: 154px;
+    height: 50px;
+    margin: 10px 7px 0;
+    background-color: #009EE4;
+    border-radius: 6px;
+    border: 1px solid #009EE4;
+  }
+  
+  .settingsBtn:hover {
+    background-color: #0080C1;
+  }
+
+  .mainTitle {
+    margin-bottom: 30px;
+        font-size: 18px;
+        line-height: 1;
+  }
+
+  .mainContent {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .cardsItem {
+    margin: 0;
+  }

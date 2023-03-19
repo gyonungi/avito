@@ -1,10 +1,9 @@
 import NavBar from "./NavBar/NavBar";
-
+import s from "./Header.module.css"
 const Header = () => {
   return (
-    <header class="header">
-      <NavBar>
-      </NavBar>
+    <header className={s.header}>
+      <NavBar/>
     </header>
   );
 };
