@@ -6,6 +6,7 @@ const initialState = {
   access_token: "",
   refresh_token: "",
   token_type: "",
+  isAuth: false,
 };
 
 export const authReducers = (state = initialState, actions) => {
@@ -23,6 +24,7 @@ export const authReducers = (state = initialState, actions) => {
     case "LOGIN_ERROR":
       return {
         ...state,
+        isAuth:false,
         error: actions.payload,
       };
     case "LOGIN_SUCKESS":
@@ -30,13 +32,35 @@ export const authReducers = (state = initialState, actions) => {
         ...state,
         access_token: actions.payload,
         refresh_token: actions.payload,
-
         token_type: actions.payload,
+        isAuth:true,
+        error:null,
       };
+      case "AUTH_SUCCESS":
+      return{
+        ...state,
+        isAuth:true,
+      }
+      case "AUTH_ERROR":
+        return{
+          ...state,
+          isAuth:false,
+          message:"Пожалуста авторизируйтесь",
+        }
     default:
       return state;
   }
 };
+
+export const AuthSuccess = (payload) => ({
+  type: "AUTH_SUCCESS",
+  payload,
+});
+
+export const AuthError = (payload) => ({
+  type: "AUTH_ERROR",
+  payload,
+});
 
 export const LoginSuckess = (payload) => ({
   type: "LOGIN_SUCKESS",

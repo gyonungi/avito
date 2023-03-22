@@ -1,5 +1,5 @@
 
-import { LoginError, LoginSuckess, RegistrationError, UserMessage } from "../store/reducers/auth";
+import { AuthError, LoginError, LoginSuckess, RegistrationError, UserMessage } from "../store/reducers/auth";
 
 export const registration = (userDate) => {
   return async (dispath) => {
@@ -31,10 +31,12 @@ export const Login = (userDate,cb) => {
       body: JSON.stringify(userDate),
     });
     const data = await res.json();
-        if(data == "Incorrect password"){
+        if(data.detail){
             
-            console.log(data.detail);
-           return dispath(LoginError(data.detail))
+           return dispath(LoginError(data));
+        }else {
+          dispath(LoginSuckess(data))
+          cb(JSON.stringify(data))
         }
     dispath(LoginSuckess(data))
         cb(JSON.stringify(data))
@@ -52,3 +54,26 @@ export const Login = (userDate,cb) => {
     }); */
   };
 };
+
+export const LoginToken = (userDate,cb) => {
+  return async (dispath) =>{
+    const res = await fetch (`http://localhost:8090/auth/login`,{
+      method: "PUT",
+      headers:{ "Content-Type": "application/json" },
+      body:JSON.stringify(userDate),
+    });
+    const data = await res.json();
+    data.then((res) => {
+      if(res.status === 200){
+     document.cookie(res.access,"token")
+     cb(1)
+     return dispath(AuthError(data))
+     
+      }
+    }).catch((err) => {
+      if (err) {
+        dispath(LoginError(err))
+    }
+    });
+}
+}

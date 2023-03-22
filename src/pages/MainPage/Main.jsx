@@ -1,8 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getAdds } from "../../asyncAction/add";
 import Card from "../../components/Card/Card";
-import s from "./Main.module.css"
+import s from "./Main.module.css";
 
 const Main = () => {
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAdds());
+  }, []);
+  const { addList } = useSelector((state) => state.adds);
   return (
     <>
       <div className={s.mainSearch}>
@@ -35,14 +44,17 @@ const Main = () => {
         <h2 className={s.mainH2}>Объявления</h2>
 
         <div className={s.mainContent}>
-          <div className="content__cards cards">
-                <Card title="title" place="place" date={new Date().toLocaleString()} price={100}>
-                    
-                </Card>
+          <div className={s.cards}>
+          
+            { addList.length ? (
+              addList.map((item) => <Card key={item.id} date={item} />)
+            ) : (
+              <p>Объявлений нет</p>
+            )}
           </div>
         </div>
       </div>
     </>
   );
 };
-export default Main
+export default Main;

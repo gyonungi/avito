@@ -1,3 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+}
 .cardsItem {
     margin: 0;
   }
@@ -19,6 +39,12 @@
     height: 270px;
     background-color: #F0F0F0;
   }
+  .cardImage img {
+      height: auto;
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
   
   .cardTitle {
     height: 52px;
@@ -48,3 +74,33 @@
   .cardPlace {
     margin-bottom: 4px;
   }
+
+  .cards {
+    max-width: 1158px;
+    width: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns:  repeat(4, 270px);
+    grid-template-columns: repeat(4, 270px);
+    grid-auto-rows: 441px;
+    grid-gap: 40px 26px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow-y: auto;
+    scrollbar-color: #ffffff #2e2e2e;
+    scrollbar-width: thin;
+    scrollbar-width: 0px;
+    height: auto;
+  }
+
+.cards::-webkit-scrollbar {
+  width: 0px;
+  background-color: #009EE4;
+}
+
+.cards::-webkit-scrollbar-thumb {
+  background-color: #0080C1;
+  border-radius: 3px;
+}  
+
