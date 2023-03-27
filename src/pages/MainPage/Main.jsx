@@ -6,7 +6,6 @@ import Card from "../../components/Card/Card";
 import s from "./Main.module.css";
 
 const Main = () => {
-  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAdds());
@@ -40,18 +39,15 @@ const Main = () => {
         </form>
       </div>
 
-      <div className={s.mainContainer}>
-        <h2 className={s.mainH2}>Объявления</h2>
+      <h2 className={s.mainH2}>Объявления</h2>
 
-        <div className={s.mainContent}>
-          <div className={s.cards}>
-          
-            { addList.length ? (
-              addList.map((item) => <Card key={item.id} date={item} />)
-            ) : (
-              <p>Объявлений нет</p>
-            )}
-          </div>
+      <div className={s.mainContent}>
+        <div className={s.cards}>
+          {addList.length ? (
+            addList.map((item) => <Card key={item.id} date={item} />)
+          ) : (
+            <p>Объявлений нет</p>
+          )}
         </div>
       </div>
     </>

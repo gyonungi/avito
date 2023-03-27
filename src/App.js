@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import CreateAdds from "./components/CreateAdds/CreateAdds";
 import AuthLayot from "./layout/AuthLayot";
 import MainLayout from "./layout/MainLayout";
 import Description from "./pages/DescriptionPage/Descrip";
@@ -8,6 +9,8 @@ import MyDescription from "./pages/MyDescripPage/MyDescrip";
 import Profile from "./pages/ProfilePage/Profile";
 import Registration from "./pages/RegistrationPage/Registration";
 import SellProfile from "./pages/SellProfilePage/SellProfile";
+import Reviews from "./components/Reviews/Reviews.jsx"
+import EditAdd from "./components/EdditAdd/EditAdd";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
           <Route path="/auth/reg" element={<Registration />} />
           <Route path="/auth/log" element={<LogIn />} />
         </Route>
+        <Route path="/createadd" element={<CreateAdds/>} />
+        <Route path="/rev" element={<Reviews/>} />
+        <Route path="/editadd" element={<EditAdd/>} />
       </Routes>
     </>
   );

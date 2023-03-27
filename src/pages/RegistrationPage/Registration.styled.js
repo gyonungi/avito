@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const RegDiv = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #2E2E2E;
+      background-color: #F4F5F6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +56,7 @@ width: 278px;
     color: #ffffff;
     letter-spacing: -0.05px;
     border: none;
-    margin-top: 60px;
+    margin-top: -23px;
     transition: 0.3s;
 
     :hover {

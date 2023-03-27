@@ -9,7 +9,9 @@ import {
   Loginput,
   LogButton,
   Regbutton,
-} from "./LogIn.styled";
+  Wrapper,
+  ModalBlock,
+} from "./LogIn.styled.js";
 
 const LogIn = () => {
   const dispath = useDispatch();
@@ -28,10 +30,15 @@ const LogIn = () => {
       
     );
   }
+  function handleClick() {
+    navigate("/auth/reg")
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
+    <Wrapper >
     <LogDiv>
+    <ModalBlock>
       <LogBox>
         <div></div>
         <LogForm onSubmit={(e) => log(e)}>
@@ -52,10 +59,12 @@ const LogIn = () => {
 
           <LogButton>Войти</LogButton>
 
-          <Regbutton>Зарегистрироваться</Regbutton>
+          <Regbutton onClick={handleClick}>Зарегистрироваться</Regbutton>
         </LogForm>
       </LogBox>
+      </ModalBlock>
     </LogDiv>
+    </Wrapper>
   );
 };
 

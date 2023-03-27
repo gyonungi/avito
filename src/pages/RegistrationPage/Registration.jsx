@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registration } from "../../asyncAction/auth";
 import {
   RegDiv,
@@ -11,6 +12,7 @@ import {
 
 const Registration = (props) => {
   const dispath = useDispatch();
+  const navigate = useNavigate
   function registr(e) {
     e.preventDefault();
     let dto = {
@@ -26,6 +28,9 @@ const Registration = (props) => {
     dispath(registration(dto));
   }
 
+    function handleClick(){
+      navigate("/auth/log")
+    }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -87,7 +92,7 @@ const Registration = (props) => {
             placeholder="Сity (optional)"
           />
 
-          <LogButton>Зарегистрироваться</LogButton>
+          <LogButton onClick={handleClick}>Зарегистрироваться</LogButton>
         </RegForm>
       </RegBox>
     </RegDiv>

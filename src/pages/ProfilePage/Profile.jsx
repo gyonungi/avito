@@ -1,7 +1,34 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { editUser, SetUserAvatar } from "../../asyncAction/profile";
 import Card from "../../components/Card/Card";
 import s from "./Profile.module.css"
 const Profile = () => {
+    const dispath = useDispatch();
+    const {user} = useSelector((state) => state.user)
+
+const token = document.cookie.split("=")[1];
+const { refresh_token } = JSON.parse(token);
+    function ProfileUser(e) {
+        e.preventDefault();
+        let dto ={
+            name,
+            surname,
+            city,
+            phone,
+        }
+        dispath(editUser(dto,refresh_token))
+    }
+
+    const setAvatar = async(e) =>{
+        dispath(SetUserAvatar(e.target.files[0],refresh_token))
+    }
+    
+    const [name,setName] = useState("");
+    const [surname,setSurname]  = useState("");
+    const [city,setCity] = useState("");
+    const [phone,setPhone]  = useState("");
     return ( 
         <>
           <div className={s.mainContainer}>
@@ -16,7 +43,7 @@ const Profile = () => {
                         
                         </div>
                         
-                        <h2 className={s.mainH2}>Здравствуйте, Антон!</h2>
+                        <h2 className={s.mainH2}>Здравствуйте, {user.name}!</h2>
                         
                         <div className={s.mainProfile}>
                             <div className={s.profileContent}>
@@ -25,34 +52,67 @@ const Profile = () => {
                                     <div className={s.settingsLeft}>
                                         <div className={s.settingsImg}>
                                             <NavLink target="_self">
-                                                <img src="#" alt=""/>
-                                            </NavLink>
+                                                <img src={!user.avatar ? "" : `http://localhost:8090/${user.avatar}`}
+                                                alt=""/>
+                                            </NavLink>  
                         
                                         </div>
-                                        <NavLink className={s.settingsChangePhoto}  target="_self">
+                                        <label className={s.settingsChangePhoto}   target="_self">
+                                            <input 
+                                            onChange={(e)=>setAvatar(e)}
+                                            type="file"
+                                            id="setAvatar"
+                                            />
                                             Заменить
-                                        </NavLink>
+                                        </label>
                                     </div>
                                     <div className={s.settingsRight}>
-                                        <form className={s.settingsForm} action="#">
+                                        <form onSubmit={(e)=> ProfileUser(e)}  className={s.settingsForm} action="#">
                                             <div className={s.settingsDiv}>
                                                 <label for="fname">Имя</label>
-                                                <input className={s.settingsFName} id="settings-fname" name="fname" type="text" value="Ан" placeholder=""/>
+                                                <input 
+                                                onChange={(e) => setName(e.target.value)}
+                                                 className={s.settingsFName} 
+                                                id="settings-fname" 
+                                                name="fname" 
+                                                type="text" 
+                                              
+                                                 placeholder=""/>
                                             </div>
                         
                                             <div className={s.settingsDiv}>
                                                 <label for="lname">Фамилия</label>
-                                                <input className={s.settingsLName} id="settings-lname" name="lname" type="text" value="Городецкий" placeholder=""/>
+                                                <input 
+                                                onChange={(e)=> setSurname(e.target.value)}
+                                                className={s.settingsLName} 
+                                                id="settings-lname" 
+                                                name="lname" type="text" 
+                                              
+                                                placeholder=""/>
                                             </div>
                         
                                             <div className={s.settingsDiv}>
                                                 <label for="city">Город</label>
-                                                <input className={s.settingsCity} id="settings-city" name="city" type="text" value="Санкт-Петербург" placeholder=""/>
+                                                <input 
+                                                onChange={(e)=> setCity(e.target.value)}
+                                                className={s.settingsCity} 
+                                                id="settings-city" 
+                                                name="city" 
+                                                type="text" 
+                                              
+                                                placeholder=""/>
                                             </div>
                         
                                             <div className={s.settingsDiv}>
                                                 <label for="phone">Телефон</label>
-                                                <input className={s.settingsPhone} id="settings-phone" name="phone" type="tel" value="89161234567" placeholder="+79161234567"/>
+                                                <input 
+                                                onChange={(e)=> setPhone(e.target.value)}
+                                                className={s.settingsPhone} 
+                                                id="settings-phone" 
+                                                name="phone" 
+                                                type="tel" 
+                                              
+                                                placeholder="+79161234567"/>
                                             </div>
                         
                                             <button className={s.settingsBtn} id="settings-btn">Сохранить</button>
