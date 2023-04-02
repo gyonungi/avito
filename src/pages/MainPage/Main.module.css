@@ -45,6 +45,7 @@ body {
 .searchLogoImg {
   width: 54px;
   height: auto;
+  margin-bottom: 40px;
 }
 .searchForm {
   margin-left: 60px;

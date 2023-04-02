@@ -24,6 +24,9 @@ body {
   margin: 0 auto;
   position: relative;
   background-color: #f4f5f6;
+  position: absolute;
+  margin-left: 505px;
+  margin-top: 45px;
 }
 
 .modalBlock {
@@ -73,13 +76,13 @@ body {
   height: 100%;
 }
 
-.modalBtnCloseLine:hover::after,
-.modalBtnCloseLine:hover::before {
+.modalBtnCloseLine:hover
+.modalBtnCloseLine:hover {
   background-color: #0080c1;
 }
 
-.modalBtnCloseLine:hover::after,
-.modalBtnCloseLine:hover::before {
+.modalBtnCloseLine::after,
+.modalBtnCloseLine::before {
   content: "";
   position: absolute;
   width: 30px;

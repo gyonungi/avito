@@ -14,6 +14,35 @@
             justify-content: end;
   }
 
+  .headerBtnPutAd,.headerBtnLk{
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+.headerBtnPutAd{
+  width: 232px;
+  height: 40px;
+}
+
+.headerBtnLk{
+  width: 173px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.headerBtnPutAd:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #FFFFFF;
+}
+.headerBtnLk:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #FFFFFF;
+}
+
   .headerBtnMain {
     width: 224px;
     height: 40px;
@@ -28,3 +57,13 @@
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid #FFFFFF;
   }
+.headerBtnMainEnter{
+  width: 224px;
+    height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1;
+}

@@ -1,25 +1,38 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toCreateAdd } from "../../asyncAction/add";
+import { CreateAddText, toCreateAdd } from "../../asyncAction/add";
 import s from "./CreateAdds.module.css";
 
+/* 
+ const token = document.cookie.split("=")[1];
+const { refresh_token } = JSON.parse(token);  */
 const CreateAdds = () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
-  const { refresh_token } = JSON.parse(token);
+
   function handleClick(){
     navigate("/")
   }
   function CreateAdd(e) {
     e.preventDefault();
-    let dto = {
-      title,
-      description,
-      price,
-      files:[files],
-    };
-    dispath(toCreateAdd(dto,refresh_token))
+    if (files) {
+      let dto = {
+        title,
+        description,
+        price,
+        files:[files],
+      };
+      dispath(toCreateAdd(dto,/* refresh_token */))
+    }else{
+      let dto = {
+        title,
+        description,
+        price,
+      };
+      dispath(CreateAddText(dto,/* refresh_token */))
+    }
+   
   }
 
   const [title, setTitle] = useState("");
@@ -33,10 +46,10 @@ const CreateAdds = () => {
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Новое объявление</h3>
             <div className={s.modalBtnClose}>
-              <div className={s.modalBtnCloseLine}></div>
+              <div className={s.modalBtnCloseLine} >  </div>
             </div>
             <form
-              onSubmit={(e) => CreateAdd(e)}
+              onSubmit={(e) => CreateAdd(e) }
               className={s.modalFormNewArt}
               id="formNewArt"
              

@@ -3,6 +3,7 @@
 const initialState = {
   addList: [],
   message:"",
+  modalIsOpen:false,
 };
 
 export const addsReducers = (state = initialState, actions) => {
@@ -12,6 +13,16 @@ export const addsReducers = (state = initialState, actions) => {
         ...state,
         addList: actions.payload,
       };
+      case "OPEN_MODAL":
+        return {
+           ...state,
+          modalIsOpen:true,
+         }
+      case "CLOSE_MODAL":
+        return {
+           ...state,
+          modalIsOpen:false,
+         }
       case "CREATE_ADDS_ERROR":
        return {
           ...state,
@@ -21,6 +32,14 @@ export const addsReducers = (state = initialState, actions) => {
       return state;
   }
 };
+
+export const openModal = () => ({
+  type: "OPEN_MODAL"
+})
+
+export const closeModal = () => ({
+  type: "CLOSE_MODAL"
+})
 
 export const getAdd = (payload) => ({
     type: "GET_ADDS",

@@ -1,79 +1,59 @@
 
-import { AuthError, LoginError, LoginSuckess, RegistrationError, UserMessage } from "../store/reducers/auth";
+import { AuthError, LoginSuckess,  } from "../store/reducers/auth";
 
-export const registration = (userDate) => {
-  return async (dispath) => {
-    const res = await fetch(`http://localhost:8090/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userDate),
-    });
-    const data = await res.json();
-    data
-      .then((result) => {
-        if (Object.keys(result).length) {
-          dispath(UserMessage("Пользователь успешно зарегестрирован"));
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          dispath(RegistrationError(err));
-        }
-      });
-  };
+export const registration = (dto) => {
+return async (dispatch) => {
+  const res = await fetch(`http://localhost:8090/auth/register`, {
+    method: "POST",
+    body: JSON.stringify(dto),
+    headers: { "content-type": "application/json" },
+  });
+  const data = res.json();
+
+  data.catch((err) => {
+    if (err) console.log(err);
+    dispatch(AuthError(err));
+  });
+};
 };
 
-export const Login = (userDate,cb) => {
-  return async (dispath) => {
+export const Login = (dto, cb) => {
+  return async (dispatch) => {
     const res = await fetch(`http://localhost:8090/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userDate),
+      body: JSON.stringify(dto),
     });
     const data = await res.json();
-        if(data.detail){
-            
-           return dispath(LoginError(data));
-        }else {
-          dispath(LoginSuckess(data))
-          cb(JSON.stringify(data))
-        }
-    dispath(LoginSuckess(data))
-        cb(JSON.stringify(data))
-        
-   /*  data
-    .then((result) => {
-        dispath(LoginSuckess(result))
-        cb(result)
-    })
-    .catch((err) => {
-        if (err) {
-            dispath(LoginError(err))
-        }
-        
-    }); */
+    if (data.access_token) {
+      dispatch(LoginSuckess(data));
+      cb(data);
+    } else {
+      dispatch(AuthError(data));
+    }
   };
 };
 
-export const LoginToken = (userDate,cb) => {
-  return async (dispath) =>{
-    const res = await fetch (`http://localhost:8090/auth/login`,{
+export const refreshToken = (token) => {
+  return async (dispatch) => {
+    const res = await fetch(`http://localhost:8090/auth/login`, {
       method: "PUT",
-      headers:{ "Content-Type": "application/json" },
-      body:JSON.stringify(userDate),
+      body: JSON.stringify({
+        access_token: token.access_token,
+        refresh_token: token.refresh_token,
+        token_type: "Bearer",
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
     });
-    const data = await res.json();
-    data.then((res) => {
-      if(res.status === 200){
-     document.cookie(res.access,"token")
-     cb(1)
-     return dispath(AuthError(data))
-     
-      }
-    }).catch((err) => {
-      if (err) {
-        dispath(LoginError(err))
-    }
-    });
-}
-}
+    const data = res.json();
+    data
+      .then((data) => {
+        dispatch(LoginSuckess(data));
+      })
+      .catch((err) => {
+        dispatch(AuthError(err));
+      });
+  };
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { Login } from "../../asyncAction/auth";
 import {
   LogDiv,
@@ -24,7 +24,7 @@ const LogIn = () => {
     };
     dispath(
       Login(dto, (token) => {
-        document.cookie = `token=${token}; path=/;`;
+        document.cookie = `token=${JSON.stringify(token)}; path=/;`;
       navigate("/")
       })
       

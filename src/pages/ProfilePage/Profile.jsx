@@ -1,145 +1,171 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { editUser, SetUserAvatar } from "../../asyncAction/profile";
+import { NavLink, useNavigate } from "react-router-dom";
+import { editUser, getUsers, SetUserAvatar } from "../../asyncAction/profile";
 import Card from "../../components/Card/Card";
-import s from "./Profile.module.css"
+import s from "./Profile.module.css";
+import Logo from "../../images/Logo.png";
+import { getAddsUserId } from "../../asyncAction/add";
+
 const Profile = () => {
-    const dispath = useDispatch();
-    const {user} = useSelector((state) => state.user)
+  const dispath = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const token = document.cookie.split("=")[1];
+  const { refresh_token } = JSON.parse(token);
+  const  {addList}  = useSelector((state) => state.adds);
+  useEffect(() => {
+    dispath(getUsers(refresh_token,(user) => dispath(getAddsUserId(Number(user.id))) ));
+/*     dispath(getAddsUserId(Number(user.id))); */
+  }, []);
 
-const token = document.cookie.split("=")[1];
-const { refresh_token } = JSON.parse(token);
-    function ProfileUser(e) {
-        e.preventDefault();
-        let dto ={
-            name,
-            surname,
-            city,
-            phone,
-        }
-        dispath(editUser(dto,refresh_token))
-    }
+  const navigate = useNavigate();
 
-    const setAvatar = async(e) =>{
-        dispath(SetUserAvatar(e.target.files[0],refresh_token))
-    }
-    
-    const [name,setName] = useState("");
-    const [surname,setSurname]  = useState("");
-    const [city,setCity] = useState("");
-    const [phone,setPhone]  = useState("");
-    return ( 
-        <>
-          <div className={s.mainContainer}>
-                    <div className={s.mainCenterBlock}>
-                        <div className={s.mainMenu}>                   
-                                <NavLink className={s.menuLogoLink}>
-                                <img className={s.menuLogoImg} src="img/logo.png" alt="logo"/>
-                                </NavLink>
-                            <form className={s.menuForm} action="#">
-                                <button className={s.menuBtn} id="btnGoBack">Вернуться на&nbsp;главную</button>
-                            </form>
-                        
-                        </div>
-                        
-                        <h2 className={s.mainH2}>Здравствуйте, {user.name}!</h2>
-                        
-                        <div className={s.mainProfile}>
-                            <div className={s.profileContent}>
-                                <h3 className={s.profileTitle}>Настройки профиля</h3>
-                                <div className={s.profileSettings}>
-                                    <div className={s.settingsLeft}>
-                                        <div className={s.settingsImg}>
-                                            <NavLink target="_self">
-                                                <img src={!user.avatar ? "" : `http://localhost:8090/${user.avatar}`}
-                                                alt=""/>
-                                            </NavLink>  
-                        
-                                        </div>
-                                        <label className={s.settingsChangePhoto}   target="_self">
-                                            <input 
-                                            onChange={(e)=>setAvatar(e)}
-                                            type="file"
-                                            id="setAvatar"
-                                            />
-                                            Заменить
-                                        </label>
-                                    </div>
-                                    <div className={s.settingsRight}>
-                                        <form onSubmit={(e)=> ProfileUser(e)}  className={s.settingsForm} action="#">
-                                            <div className={s.settingsDiv}>
-                                                <label for="fname">Имя</label>
-                                                <input 
-                                                onChange={(e) => setName(e.target.value)}
-                                                 className={s.settingsFName} 
-                                                id="settings-fname" 
-                                                name="fname" 
-                                                type="text" 
-                                              
-                                                 placeholder=""/>
-                                            </div>
-                        
-                                            <div className={s.settingsDiv}>
-                                                <label for="lname">Фамилия</label>
-                                                <input 
-                                                onChange={(e)=> setSurname(e.target.value)}
-                                                className={s.settingsLName} 
-                                                id="settings-lname" 
-                                                name="lname" type="text" 
-                                              
-                                                placeholder=""/>
-                                            </div>
-                        
-                                            <div className={s.settingsDiv}>
-                                                <label for="city">Город</label>
-                                                <input 
-                                                onChange={(e)=> setCity(e.target.value)}
-                                                className={s.settingsCity} 
-                                                id="settings-city" 
-                                                name="city" 
-                                                type="text" 
-                                              
-                                                placeholder=""/>
-                                            </div>
-                        
-                                            <div className={s.settingsDiv}>
-                                                <label for="phone">Телефон</label>
-                                                <input 
-                                                onChange={(e)=> setPhone(e.target.value)}
-                                                className={s.settingsPhone} 
-                                                id="settings-phone" 
-                                                name="phone" 
-                                                type="tel" 
-                                              
-                                                placeholder="+79161234567"/>
-                                            </div>
-                        
-                                            <button className={s.settingsBtn} id="settings-btn">Сохранить</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3 className={s.mainTitle}>
-                            Мои товары
-                        </h3>
-                    </div>
-                    <div className={s.mainContent}>
-                        
-                        <div className={s.cardsItem}>                            
+  function handleClick() {
+    navigate("/");
+  }
 
-                           <Card/>
+  function ProfileUser(e) {
+    e.preventDefault();
+    let dto = {
+      name,
+      surname,
+      city,
+      phone,
+    };
+    dispath(editUser(dto, refresh_token));
+  }
 
-                           
+  const setAvatar = async (e) => {
+    dispath(SetUserAvatar(e.target.files[0], refresh_token));
+  };
 
-                        </div>                        
-                    </div>
-                    
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
+  return (
+    <>
+      <div className={s.mainContainer}>
+        <div className={s.mainCenterBlock}>
+          <div className={s.mainMenu}>
+            <NavLink className={s.menuLogoLink}>
+              <img className={s.menuLogoImg} src={Logo} alt="logo" />
+            </NavLink>
+            <form className={s.menuForm} action="#">
+              <button
+                onClick={handleClick}
+                className={s.menuBtn}
+                id="btnGoBack"
+              >
+                Вернуться на&nbsp;главную
+              </button>
+            </form>
+          </div>
+
+          <h2 className={s.mainH2}>Здравствуйте, {user.name}!</h2>
+
+          <div className={s.mainProfile}>
+            <div className={s.profileContent}>
+              <h3 className={s.profileTitle}>Настройки профиля</h3>
+              <div className={s.profileSettings}>
+                <div className={s.settingsLeft}>
+                  <div className={s.settingsImg}>
+                    <NavLink target="_self">
+                      <img
+                        src={
+                          !user.avatar
+                            ? ""
+                            : `http://localhost:8090/${user.avatar}`
+                        }
+                        alt=""
+                      />
+                    </NavLink>
+                  </div>
+                  <label className={s.settingsChangePhoto} target="_self">
+                    <input
+                      onChange={(e) => setAvatar(e)}
+                      type="file"
+                      id="setAvatar"
+                    />
+                    Заменить
+                  </label>
                 </div>
-        </>
-     );
-}
- 
+                <div className={s.settingsRight}>
+                  <form
+                    onSubmit={(e) => ProfileUser(e)}
+                    className={s.settingsForm}
+                    action="#"
+                  >
+                    <div className={s.settingsDiv}>
+                      <label for="fname">Имя</label>
+                      <input
+                        onChange={(e) => setName(e.target.value)}
+                        className={s.settingsFName}
+                        id="settings-fname"
+                        name="fname"
+                        type="text"
+                        placeholder=""
+                      />
+                    </div>
+
+                    <div className={s.settingsDiv}>
+                      <label for="lname">Фамилия</label>
+                      <input
+                        onChange={(e) => setSurname(e.target.value)}
+                        className={s.settingsLName}
+                        id="settings-lname"
+                        name="lname"
+                        type="text"
+                        placeholder=""
+                      />
+                    </div>
+
+                    <div className={s.settingsDiv}>
+                      <label for="city">Город</label>
+                      <input
+                        onChange={(e) => setCity(e.target.value)}
+                        className={s.settingsCity}
+                        id="settings-city"
+                        name="city"
+                        type="text"
+                        placeholder=""
+                      />
+                    </div>
+
+                    <div className={s.settingsDiv}>
+                      <label for="phone">Телефон</label>
+                      <input
+                        onChange={(e) => setPhone(e.target.value)}
+                        className={s.settingsPhone}
+                        id="settings-phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="+79161234567"
+                      />
+                    </div>
+
+                    <button className={s.settingsBtn} id="settings-btn">
+                      Сохранить
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 className={s.mainTitle}>Мои товары</h3>
+        </div>
+        <div className={s.mainContent}>
+          <div className={s.cardsItem}>
+            {addList.length ? (
+                addList.map((item) => <Card key={item.id} date = {item}/>)
+            ) : <p>Товаров нет</p>
+
+          }</div>
+        </div>
+      </div>
+    </>
+  );
+};
+
 export default Profile;

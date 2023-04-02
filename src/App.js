@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Main />} />
-          <Route path="/descrip" element={<Description />} />
+          <Route path="/ads/:id" element={<Description />} />
           <Route path="/mydescrip" element={<MyDescription />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/sellprofile" element={<SellProfile />} />

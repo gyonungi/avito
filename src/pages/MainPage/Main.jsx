@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { getAdds } from "../../asyncAction/add";
 import Card from "../../components/Card/Card";
 import s from "./Main.module.css";
-
+import Logo from "../../images/Logo.png"
 const Main = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,13 +15,13 @@ const Main = () => {
     <>
       <div className={s.mainSearch}>
         <NavLink className={s.searchLogoLink}>
-          <img className={s.searchLogoImg} src="img/logo.png" alt="logo" />
+          <img className={s.searchLogoImg} src="../../images/Logo.png" alt="logo" />
         </NavLink>
 
-        <NavLink className={s.searchLogoMobLink}>
-          <img className={s.earchLogoImg} src="img/logo-mob.png" alt="logo" />
-        </NavLink>
-
+     {/*    <NavLink className={s.searchLogoMobLink}>
+          <img className={s.searchLogoImg} src={Logo} alt="logo" />
+        </NavLink> */}
+    <img className={s.searchLogoImg} src={Logo} alt="logo" />
         <form className={s.searchForm} action="#">
           <input
             className={s.searchText}
