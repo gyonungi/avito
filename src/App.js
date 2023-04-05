@@ -5,7 +5,6 @@ import MainLayout from "./layout/MainLayout";
 import Description from "./pages/DescriptionPage/Descrip";
 import LogIn from "./pages/LoginPage/LogIn";
 import Main from "./pages/MainPage/Main";
-import MyDescription from "./pages/MyDescripPage/MyDescrip";
 import Profile from "./pages/ProfilePage/Profile";
 import Registration from "./pages/RegistrationPage/Registration";
 import SellProfile from "./pages/SellProfilePage/SellProfile";
@@ -19,7 +18,6 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Main />} />
           <Route path="/ads/:id" element={<Description />} />
-          <Route path="/mydescrip" element={<MyDescription />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/sellprofile" element={<SellProfile />} />
         </Route>
@@ -28,8 +26,8 @@ function App() {
           <Route path="/auth/log" element={<LogIn />} />
         </Route>
         <Route path="/createadd" element={<CreateAdds/>} />
-        <Route path="/rev" element={<Reviews/>} />
-        <Route path="/editadd" element={<EditAdd/>} />
+        <Route path="/rev/:id" element={<Reviews/>} />
+        <Route path="/edit/:id" element={<EditAdd/>} />
       </Routes>
     </>
   );

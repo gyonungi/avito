@@ -1,7 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import s from "./sellProfile.module.css";
+import { useDispatch } from "react-redux";
 const SellProfile = () => {
+  const params = useParams();
+  const dispatch = useDispatch()
   return (
     <>
       <div className={s.mainContainer}>

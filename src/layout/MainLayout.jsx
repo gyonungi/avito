@@ -5,6 +5,7 @@ import { refreshToken } from "../asyncAction/auth";
 import CreateAdds from "../components/CreateAdds/CreateAdds";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
+import { getUsers } from "../asyncAction/user";
 
 const MainLayout = () => {
   const dispath = useDispatch();
@@ -13,6 +14,7 @@ const MainLayout = () => {
     const token = document.cookie.split("=")[1];
     if (token) {
       dispath(refreshToken(JSON.parse(token)));
+    dispath(getUsers(JSON.parse(token).refresh_token)) 
     }
   },[]);
 

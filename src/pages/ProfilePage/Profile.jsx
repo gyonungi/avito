@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { editUser, getUsers, SetUserAvatar } from "../../asyncAction/profile";
+import { editUser, getUsers, SetUserAvatar } from "../../asyncAction/user";
 import Card from "../../components/Card/Card";
 import s from "./Profile.module.css";
 import Logo from "../../images/Logo.png";
@@ -12,10 +12,12 @@ const Profile = () => {
   const { user } = useSelector((state) => state.user);
   const token = document.cookie.split("=")[1];
   const { refresh_token } = JSON.parse(token);
-  const  {addList}  = useSelector((state) => state.adds);
+  const { addList } = useSelector((state) => state.adds);
   useEffect(() => {
-    dispath(getUsers(refresh_token,(user) => dispath(getAddsUserId(Number(user.id))) ));
-/*     dispath(getAddsUserId(Number(user.id))); */
+    dispath(
+      getUsers(refresh_token, (user) => dispath(getAddsUserId(Number(user.id))))
+    );
+    /*     dispath(getAddsUserId(Number(user.id))); */
   }, []);
 
   const navigate = useNavigate();
@@ -158,10 +160,11 @@ const Profile = () => {
         <div className={s.mainContent}>
           <div className={s.cardsItem}>
             {addList.length ? (
-                addList.map((item) => <Card key={item.id} date = {item}/>)
-            ) : <p>Товаров нет</p>
-
-          }</div>
+              addList.map((item) => <Card key={item.id} date={item} />)
+            ) : (
+              <p>Товаров нет</p>
+            )}
+          </div>
         </div>
       </div>
     </>

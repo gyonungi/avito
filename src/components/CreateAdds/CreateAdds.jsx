@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CreateAddText, toCreateAdd } from "../../asyncAction/add";
 import s from "./CreateAdds.module.css";
+import ClickAwayListener from "react-click-away-listener";
 
 /* 
  const token = document.cookie.split("=")[1];
@@ -11,8 +12,9 @@ const CreateAdds = () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
 
-  function handleClick(){
-    navigate("/")
+
+  function handleClick() {
+    navigate("/");
   }
   function CreateAdd(e) {
     e.preventDefault();
@@ -21,18 +23,17 @@ const CreateAdds = () => {
         title,
         description,
         price,
-        files:[files],
+        files: [files],
       };
-      dispath(toCreateAdd(dto,/* refresh_token */))
-    }else{
+      dispath(toCreateAdd(dto /* refresh_token */));
+    } else {
       let dto = {
         title,
         description,
         price,
       };
-      dispath(CreateAddText(dto,/* refresh_token */))
+      dispath(CreateAddText(dto /* refresh_token */));
     }
-   
   }
 
   const [title, setTitle] = useState("");
@@ -45,14 +46,15 @@ const CreateAdds = () => {
         <div className={s.modalBlock}>
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Новое объявление</h3>
-            <div className={s.modalBtnClose}>
-              <div className={s.modalBtnCloseLine} >  </div>
+
+            <div className={s.modalBtnClose} > 
+              <div className={s.modalBtnCloseLine}> </div>
             </div>
+            
             <form
-              onSubmit={(e) => CreateAdd(e) }
+              onSubmit={(e) => CreateAdd(e)}
               className={s.modalFormNewArt}
               id="formNewArt"
-             
             >
               <div className={s.formNewArtBlock}>
                 <label for="title">Название</label>
@@ -83,8 +85,6 @@ const CreateAdds = () => {
                 </p>
                 <div className={s.formNewArtBarImg}>
                   <div className={s.formNewArtImg}>
-                  
-
                     <label htmlFor="files" className={s.formNewArtImgCover}>
                       <input
                         type="file"
@@ -108,7 +108,11 @@ const CreateAdds = () => {
                 <div className={s.formNewArtInputPriceCover}></div>
               </div>
 
-              <button onClick={handleClick} className={s.formNewArtBtnPub} id="btnPublish">
+              <button
+                onClick={handleClick}
+                className={s.formNewArtBtnPub}
+                id="btnPublish"
+              >
                 Опубликовать
               </button>
             </form>
