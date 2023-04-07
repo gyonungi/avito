@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
-import { deleteAddsId, editAddsId, getAddsId } from "../../asyncAction/addsdescrip";
+import { SetImage, deleteAddsId, getAddsId } from "../../asyncAction/addsdescrip";
 import s from "./Descrip.module.css";
 import Logo from "../../images/Logo.png";
+import EditAdd from "../../components/EdditAdd/EditAdd";
 const Description = () => {
   const [addList, setAdd] = useState({});
   const params = useParams();
   const dispatch = useDispatch();
-
+  const {addList : add } = useSelector((state)=> state.adds)
   useEffect(() => {
     dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
-  }, []);
+  }, [add]);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   function handleClick() {
@@ -23,11 +24,18 @@ const Description = () => {
     dispatch(deleteAddsId(Number(params.id), refresh_token));
     navigate("/")
   }
-  function handleEdit(){
+
+/*   function handleEdit(){
     dispatch(editAddsId(Number(params.id),refresh_token));
     navigate(`/edit/${addList.id}`)
+  } */
+  const setImage = async(e)=>{
+    dispatch(SetImage(Number(params.id),e.target.files[0],refresh_token))
   }
-  console.log(addList);
+  function closeModal () {
+    setOpen(false)
+  }
+  const [open,setOpen] = useState(false)
   return (
     <>
       <div className={s.mainContainer}>
@@ -65,9 +73,21 @@ const Description = () => {
                 <div className={s.articleImgBarDiv}>
                   <img src="" alt="" />
                 </div>
-                <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
-                </div>
+                <label className={s.articleImgBarDiv}>
+                <img
+                  src={
+                    addList.images?.length
+                      ? `http://localhost:8090/${addList.images[0].url}`
+                      : ""
+                  }
+                  alt=""
+                />
+                <input
+                      onChange={(e) => setImage(e)}
+                      type="file"
+                      id="setImage"
+                    />
+                </label>
                 <div className={s.articleImgBarDiv}>
                   <img src="" alt="" />
                 </div>
@@ -107,7 +127,8 @@ const Description = () => {
                 {addList.user_id === user?.id ? (
                   <div className={s.btnBlock}>
                     {" "}
-                    <button onClick={handleEdit} className={s.articleBtnReg}>Редактировать</button>
+                    {open && <EditAdd setOpen={closeModal}/>}
+                    <button onClick={()=> setOpen(true)} className={s.articleBtnReg}>Редактировать</button>
                     <button onClick={handleDell} className={s.articleBtn}>
                       Снять с публикации
                     </button>{" "}

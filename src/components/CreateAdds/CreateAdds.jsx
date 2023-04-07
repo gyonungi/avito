@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CreateAddText, toCreateAdd } from "../../asyncAction/add";
 import s from "./CreateAdds.module.css";
-import ClickAwayListener from "react-click-away-listener";
+import {closeModal} from "../../store/reducers/add"
 
 /* 
  const token = document.cookie.split("=")[1];
@@ -35,7 +35,9 @@ const CreateAdds = () => {
       dispath(CreateAddText(dto /* refresh_token */));
     }
   }
-
+  const handleCloseModal = () =>{
+    dispath(closeModal())
+  }
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -47,7 +49,7 @@ const CreateAdds = () => {
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Новое объявление</h3>
 
-            <div className={s.modalBtnClose} > 
+            <div className={s.modalBtnClose} onClick={handleCloseModal} > 
               <div className={s.modalBtnCloseLine}> </div>
             </div>
             

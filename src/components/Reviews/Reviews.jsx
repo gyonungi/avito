@@ -1,7 +1,11 @@
 import s from "./Reviews.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAddReview, getAddReviewId } from "../../asyncAction/review";
+import {
+  AddReviewId,
+  getAddReview,
+  getAddReviewId,
+} from "../../asyncAction/review";
 import { useParams } from "react-router-dom";
 const Reviews = () => {
   const [review, setReview] = useState({});
@@ -15,17 +19,19 @@ const Reviews = () => {
     dispatch(getAddReview(refresh_token));
     dispatch(
       getAddReviewId(Number(params.id), (cb) => {
-        setReview({ ...cb })  
+        setReview({ ...cb });
       })
     );
   }, []);
-  function userReviews(e) {
-    e.preventdefault();
+  
+  function UserReviews(e) {
+    e.preventDefault();
     let dto = {
-      userReview,
+      text,
     };
+    dispatch(AddReviewId(Number(params.id), dto, refresh_token));
   }
-  const [userReview, setUserReview] = useState("");
+  const [text, setUserReview] = useState("");
   return (
     <>
       <div className={s.containerBg}>
@@ -37,18 +43,17 @@ const Reviews = () => {
             </div>
             <div className={s.modalScroll}>
               <form
-                onSubmit={(e) => userReviews(e)}
+                onSubmit={(e) => UserReviews(e)}
                 className={s.modalFormNewArt}
-                id="formNewArt"
                 action="#"
               >
                 <div className={s.formNewArtBlock}>
                   <label for="text">Добавить отзыв</label>
                   <input
-                    onChange={(e) => setUserReview}
+                    onChange={(e) => setUserReview(e.target.value)}
                     className={s.formNewArtArea}
                     name="text"
-                    id="formArea"
+                    id="text"
                     cols="auto"
                     rows="5"
                     placeholder="Введите описание"
@@ -64,12 +69,15 @@ const Reviews = () => {
                     <div className={s.reviewItem}>
                       <div className={s.reviewLeft}>
                         <div className={s.reviewImg}>
-                          <img src={`http://localhost:8090/${review.author?.avatar}`} alt="" />
+                          <img
+                            src={`http://localhost:8090/${review.author?.avatar}`}
+                            alt=""
+                          />
                         </div>
                       </div>
                       <div className={s.reviewRight + " " + s.fontT}>
                         <p className={s.reviewName}>
-                          {review.author?.name} 
+                          {review.author?.name}
                           <span>14 августа</span>
                         </p>
                         <h5 className={s.reviewTitle + " " + s.fontT}>

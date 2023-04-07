@@ -1,4 +1,5 @@
-import { getUser, setError } from "../store/reducers/user";
+import { AuthError, LoginSuckess } from "../store/reducers/auth";
+import { errorPassword, getUser, passwordSuccess, setError } from "../store/reducers/user";
 
 export const getUsers = (token,cb) => {
   return async (dispatch) => {
@@ -23,7 +24,6 @@ export const getUsers = (token,cb) => {
 
 export const editUser = (dto, token) => {
   return async (dispatch) => {
-    console.log(token);
 
     const res = await fetch(`http://localhost:8090/user`, {
       method: "PATCH",
@@ -69,3 +69,25 @@ export const SetUserAvatar = (file, token) => {
       });
   };
 };
+
+export const NewPassword = (dto,token) =>{
+  return async(dispatch)=>{
+    console.log(dto);
+    const  res = await fetch(`http://localhost:8090/user/password`,{
+      method: "PUT",
+      body: JSON.stringify(dto),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+    const data = res.json();
+    data
+      .then((data) => {
+        dispatch(passwordSuccess(data));
+      })
+      .catch((err) => {
+        dispatch(errorPassword(err));
+      });
+  }
+}

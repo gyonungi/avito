@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+  import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { editUser, getUsers, SetUserAvatar } from "../../asyncAction/user";
+import { editUser, getUsers, NewPassword, SetUserAvatar } from "../../asyncAction/user";
 import Card from "../../components/Card/Card";
 import s from "./Profile.module.css";
 import Logo from "../../images/Logo.png";
@@ -41,10 +41,20 @@ const Profile = () => {
     dispath(SetUserAvatar(e.target.files[0], refresh_token));
   };
 
+  function handelPassword(e){
+    e.preventDefault();
+    let dto = {
+      password_1,
+      password_2,
+    };
+    dispath(NewPassword(dto,refresh_token))
+  }
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [password_1,setPassword] = useState("");
+  const [password_2,setNewpassword] = useState("");
   return (
     <>
       <div className={s.mainContainer}>
@@ -150,6 +160,34 @@ const Profile = () => {
                       Сохранить
                     </button>
                   </form>
+                  <form onSubmit={(e)=> handelPassword(e)}>
+                  <div className={s.settingsDiv}>
+                      <label for="password">Старый пароль</label>
+                      <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={s.settingsPhone}
+                        id="password_1"
+                        name="password_1"
+                        type="password"
+                        placeholder="Пароль"
+                      />
+                    </div>
+
+                    <div className={s.settingsDiv}>
+                      <label for="newpassword">Новый Пароль</label>
+                      <input
+                        onChange={(e) => setNewpassword(e.target.value)}
+                        className={s.settingsPhone}
+                        id="password_2"
+                        name="password_2"
+                        type="password"
+                        placeholder="Новый Пароль"
+                      />
+                    </div>
+                    <button className={s.settingsBtn} id="settings-btn">
+                      Сохранить
+                    </button>
+                    </form>
                 </div>
               </div>
             </div>
