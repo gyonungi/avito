@@ -11,7 +11,8 @@ const { refresh_token } = JSON.parse(token);  */
 const CreateAdds = () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
-
+  const token = document.cookie.split("=")[1];
+  const { refresh_token } = JSON.parse(token);
 
   function handleClick() {
     navigate("/");
@@ -25,14 +26,14 @@ const CreateAdds = () => {
         price,
         files: [files],
       };
-      dispath(toCreateAdd(dto /* refresh_token */));
+      dispath(toCreateAdd(dto,refresh_token ));
     } else {
       let dto = {
         title,
         description,
         price,
       };
-      dispath(CreateAddText(dto /* refresh_token */));
+      dispath(CreateAddText(dto,refresh_token ));
     }
   }
   const handleCloseModal = () =>{

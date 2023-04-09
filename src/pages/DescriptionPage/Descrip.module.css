@@ -133,6 +133,8 @@
     background-color: #F0F0F0;
     border: 2px solid #F0F0F0;
     margin: 0 5px;
+    display: flex;
+    gap: 10px;
   }
 
   .articleImgBarDiv img {

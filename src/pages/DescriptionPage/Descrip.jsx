@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
-import { SetImage, deleteAddsId, getAddsId } from "../../asyncAction/addsdescrip";
+import {
+  SetImage,
+  deleteAddsId,
+  getAddsId,
+} from "../../asyncAction/addsdescrip";
 import s from "./Descrip.module.css";
 import Logo from "../../images/Logo.png";
 import EditAdd from "../../components/EdditAdd/EditAdd";
@@ -9,7 +13,7 @@ const Description = () => {
   const [addList, setAdd] = useState({});
   const params = useParams();
   const dispatch = useDispatch();
-  const {addList : add } = useSelector((state)=> state.adds)
+  const { addList: add } = useSelector((state) => state.adds);
   useEffect(() => {
     dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
   }, [add]);
@@ -22,20 +26,12 @@ const Description = () => {
   const { refresh_token } = JSON.parse(token);
   function handleDell() {
     dispatch(deleteAddsId(Number(params.id), refresh_token));
-    navigate("/")
+    navigate("/");
   }
-
-/*   function handleEdit(){
-    dispatch(editAddsId(Number(params.id),refresh_token));
-    navigate(`/edit/${addList.id}`)
-  } */
-  const setImage = async(e)=>{
-    dispatch(SetImage(Number(params.id),e.target.files[0],refresh_token))
+  function closeModal() {
+    setOpen(false);
   }
-  function closeModal () {
-    setOpen(false)
-  }
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div className={s.mainContainer}>
@@ -71,34 +67,9 @@ const Description = () => {
               </div>
               <div className={s.articleImgBar}>
                 <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
-                </div>
-                <label className={s.articleImgBarDiv}>
-                <img
-                  src={
-                    addList.images?.length
-                      ? `http://localhost:8090/${addList.images[0].url}`
-                      : ""
-                  }
-                  alt=""
-                />
-                <input
-                      onChange={(e) => setImage(e)}
-                      type="file"
-                      id="setImage"
-                    />
-                </label>
-                <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
-                </div>
-                <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
-                </div>
-                <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
-                </div>
-                <div className={s.articleImgBarDiv}>
-                  <img src="" alt="" />
+                  {addList?.images?.map((item)=>(
+                    <img src={`http://localhost:8090/${item?.url}`}/>
+                  ))}
                 </div>
               </div>
               <div className={s.articleImgBarMob}>
@@ -116,7 +87,7 @@ const Description = () => {
               <div className={s.articleBlock}>
                 <h3 className={s.articleTitle}> {addList.title} </h3>
                 <div className={s.articleInfo}>
-                  <p className={s.articleDate}>Сегодня в 10:45</p>
+                  <p className={s.articleDate}>{addList.created_on?.split("T")[0]}</p>
                   <p className={s.articleCity}>Санкт-Петербург</p>
                   <Link to={`/rev/${addList.id}`} className={s.articleLink}>
                     {" "}
@@ -127,8 +98,13 @@ const Description = () => {
                 {addList.user_id === user?.id ? (
                   <div className={s.btnBlock}>
                     {" "}
-                    {open && <EditAdd setOpen={closeModal}/>}
-                    <button onClick={()=> setOpen(true)} className={s.articleBtnReg}>Редактировать</button>
+                    {open && <EditAdd setOpen={closeModal} />}
+                    <button
+                      onClick={() => setOpen(true)}
+                      className={s.articleBtnReg}
+                    >
+                      Редактировать
+                    </button>
                     <button onClick={handleDell} className={s.articleBtn}>
                       Снять с публикации
                     </button>{" "}
@@ -143,7 +119,6 @@ const Description = () => {
                   <div className={s.authorImg}>
                     <img
                       src={`http://localhost:8090/${addList.user?.avatar}`}
-                      
                       alt=""
                     />
                   </div>

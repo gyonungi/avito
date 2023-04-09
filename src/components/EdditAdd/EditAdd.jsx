@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editAddsId } from "../../asyncAction/addsdescrip";
+import { SetImage, dellImage, editAddsId } from "../../asyncAction/addsdescrip";
 import s from "./EditAdd.module.css";
 
-const EditAdd = ({setOpen}) => {
-    const token = document.cookie.split("=")[1];
-    const { refresh_token } = JSON.parse(token);
-    const dispatch = useDispatch();
-    const params = useParams();
+const EditAdd = ({ setOpen }) => {
+  const token = document.cookie.split("=")[1];
+  const { refresh_token } = JSON.parse(token);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const { addList } = useSelector((state) => state.adds);
+  const [file_url, setFiles] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   function EditAddss(e) {
     e.preventDefault();
     let dto = {
@@ -16,13 +21,20 @@ const EditAdd = ({setOpen}) => {
       description,
       price,
     };
-    dispatch(editAddsId(Number(params.id),dto,refresh_token))
+    dispatch(editAddsId(Number(params.id), dto, refresh_token));
     setOpen();
   }
-  console.log(setOpen);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+ /*  SetImage = async () => {
+    dispatch(SetImage(Number(params.id), refresh_token));
+  }; */
+  function deleteImages() {
+    let dto = {
+      file_url:[file_url],
+    };
+    dispatch(dellImage(Number(params.id), dto, refresh_token,));
+  }
+
+
   return (
     <>
       <div className={s.containerBg}>
@@ -32,7 +44,12 @@ const EditAdd = ({setOpen}) => {
             <div className={s.modalBtnClose}>
               <div className={s.modalBtnCloseLine}></div>
             </div>
-            <form onSubmit={(e) => EditAddss(e)} className={s.modalFormNewArt} id="formNewArt" action="#">
+            <form
+              onSubmit={(e) => EditAddss(e)}
+              className={s.modalFormNewArt}
+              id="formNewArt"
+              action="#"
+            >
               <div className={s.FormNewArtBlock}>
                 <label for="title">Название</label>
                 <input
@@ -41,7 +58,7 @@ const EditAdd = ({setOpen}) => {
                   type="text"
                   name="name"
                   id="title"
-                  placeholder="Введите название"
+                  placeholder={addList.title}
                 />
               </div>
               <div className={s.FormNewArtBlock}>
@@ -53,15 +70,24 @@ const EditAdd = ({setOpen}) => {
                   id="description"
                   cols="auto"
                   rows="10"
-                  placeholder="Введите описание"
+                  placeholder={addList.description}
                 ></textarea>
                 <p className={s.formNewArtP}>
                   Фотографии товара<span>не более 5 фотографий</span>
                 </p>
-                <div className={s.formNewArtBarImg}>
-                  <div className={s.formNewArtImg}>
-                    <img src="" alt="" />
-                    <div className={s.formNewArtImgCover}></div>
+                <div className={s.formNewArtBarImg} >
+                  <div className={s.formNewArtImg} onClick={deleteImages}>
+                    <label htmlFor="file_url" className={s.formNewArtImgCover}>
+                      {addList?.images?.map((item) => (
+                        <img key={item.id} id={item.id} src={`http://localhost:8090/${item?.url}`} />
+                      ))}
+                      <input
+                        type="file"
+                        id="file_url"
+                        name="setImages"
+                        onChange={(e) => setFiles(e.target.file_url[0])}
+                      />
+                    </label>
                   </div>
                 </div>
               </div>
@@ -72,6 +98,7 @@ const EditAdd = ({setOpen}) => {
                   onChange={(e) => setPrice(e.target.value)}
                   type="number"
                   name="price"
+                  placeholder={addList.price}
                   id="price"
                 />
                 <div className={s.formNewArtInputPriceCover}></div>

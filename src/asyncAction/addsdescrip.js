@@ -70,3 +70,24 @@ export const getAddsId = (pk,cb) => {
     });
   }
 }
+
+export const dellImage = (pk,dto,token) => {
+  return async(dispatch) => {
+   const res =  await fetch(`http://localhost:8090/ads/${pk}/image`,{
+      method: "DELETE",
+      body: JSON.stringify(dto),
+      headers: { "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+  },
+  })
+  const data = res.json();
+
+  data
+    .then((data) => {
+      dispatch(getAdd(data));
+    })
+    .catch((err) => {
+
+    });
+};
+};

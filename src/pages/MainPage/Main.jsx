@@ -11,6 +11,7 @@ const Main = () => {
     dispatch(getAdds());
   }, []);
   const { addList } = useSelector((state) => state.adds);
+  
   return (
     <>
       <div className={s.mainSearch}>

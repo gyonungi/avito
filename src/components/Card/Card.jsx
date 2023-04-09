@@ -32,8 +32,8 @@ const Card = ({ date }) => {
             <h3 className={s.cardTitle}>{formatTitle(date.title)}</h3>
           </Link>
           <p className={s.cardPrice}> {date?.price} ₽</p>
-          <p className={s.cardPlace}> {date?.place}</p>
-          <p className={s.cardDate}> {date?.date}</p>
+          <p className={s.cardPlace}> {date?.user?.city}</p>
+          <p className={s.cardDate}> {date?.created_on?.split("T")[0]}</p>
         </div>
       </div>
     </div>
