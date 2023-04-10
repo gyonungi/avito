@@ -71,23 +71,20 @@ export const getAddsId = (pk,cb) => {
   }
 }
 
-export const dellImage = (pk,dto,token) => {
-  return async(dispatch) => {
-   const res =  await fetch(`http://localhost:8090/ads/${pk}/image`,{
+export const dellImage = (pk,file_url,token) => {
+  return async (dispatch) => {
+    const params = new URLSearchParams({ file_url: file_url})
+    const res = await fetch(`http://localhost:8090/ads/${pk}/image?${params}`, {
       method: "DELETE",
-      body: JSON.stringify(dto),
-      headers: { "Content-Type": "application/json",
+      headers: { "content-type": "application/json" ,
       authorization: `Bearer ${token}`,
   },
-  })
-  const data = res.json();
-
-  data
-    .then((data) => {
-      dispatch(getAdd(data));
-    })
-    .catch((err) => {
-
     });
-};
+    const data = res.json();
+    data
+      .then((result) => {
+         dispatch(getAdd(result))
+      })
+      .catch((err) => {});
+  };
 };

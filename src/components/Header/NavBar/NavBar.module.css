@@ -67,3 +67,16 @@
     font-size: 16px;
     line-height: 1;
 }
+
+@media screen and (max-width: 768px) {
+  .headerNav {
+    height: 55px;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    padding: 0;
+  }
+  .headerBtnLk, .headerBtnPutAd {
+    display: none;
+  }
+}

@@ -19,7 +19,7 @@ function App() {
           <Route index element={<Main />} />
           <Route path="/ads/:id" element={<Description />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/sellprofile" element={<SellProfile />} />
+          <Route path="/sellprofile/:id" element={<SellProfile />} />
         </Route>
         <Route path="/auth" element={<AuthLayot />}>
           <Route path="/auth/reg" element={<Registration />} />

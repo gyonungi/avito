@@ -22,6 +22,26 @@ export const getUsers = (token,cb) => {
   };
 };
 
+export const getUserAll = async (token,cb) => {
+    const res = await fetch(`http://localhost:8090/user/all`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const data = res.json();
+    data
+      .then((result) => {
+      /*   dispatch(getUser(result)); */
+        cb(result)
+      })
+      .catch((err) => {
+
+      });
+  };
+
+
 export const editUser = (dto, token) => {
   return async (dispatch) => {
 

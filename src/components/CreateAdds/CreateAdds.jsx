@@ -97,6 +97,46 @@ const CreateAdds = () => {
                       />
                     </label>
                   </div>
+                  <div className={s.formNewArtImg}>
+                    <label htmlFor="files" className={s.formNewArtImgCover}>
+                      <input
+                        type="file"
+                        id="files"
+                        name="preview"
+                        onChange={(e) => setFiles(e.target.files[0])}
+                      />
+                    </label>
+                  </div>
+                  <div className={s.formNewArtImg}>
+                    <label htmlFor="files" className={s.formNewArtImgCover}>
+                      <input
+                        type="file"
+                        id="files"
+                        name="preview"
+                        onChange={(e) => setFiles(e.target.files[0])}
+                      />
+                    </label>
+                  </div>
+                  <div className={s.formNewArtImg}>
+                    <label htmlFor="files" className={s.formNewArtImgCover}>
+                      <input
+                        type="file"
+                        id="files"
+                        name="preview"
+                        onChange={(e) => setFiles(e.target.files[0])}
+                      />
+                    </label>
+                  </div>
+                  <div className={s.formNewArtImg}>
+                    <label htmlFor="files" className={s.formNewArtImgCover}>
+                      <input
+                        type="file"
+                        id="files"
+                        name="preview"
+                        onChange={(e) => setFiles(e.target.files[0])}
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
               <div className={s.formNewArtBlock}>

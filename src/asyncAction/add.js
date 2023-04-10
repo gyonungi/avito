@@ -14,6 +14,20 @@ export const getAdds = () => {
   };
 };
 
+export const getUserAdds = (id,cb) => {
+  return async (dispatch) => {
+    const res = await fetch(`http://localhost:8090/ads?id=${id}`);
+    const data = res.json();
+
+    data
+      .then((result) => {
+        dispatch(getAdd(result));
+        cb(result)
+      })
+      .catch((err) => {});
+  };
+};
+
 export const getAddsUserId = (id) => {
   return async (dispatch) => {
     const res = await fetch(`http://localhost:8090/ads?user_id=${id}`);
@@ -26,6 +40,19 @@ export const getAddsUserId = (id) => {
       .catch((err) => {});
   };
 };
+
+export const getAddsMe  =  async (id) => {
+    const res = await fetch(`http://localhost:8090/ads/me`);
+    const data = res.json();
+
+    data
+      .then((result) => {
+        /* dispatch(getAdd(result)); */
+        console.log(result);
+      })
+      .catch((err) => {});
+  };
+
 
 export const toCreateAdd = (userDate, token) => {
   return async (dispatch) => {
@@ -57,7 +84,6 @@ export const toCreateAdd = (userDate, token) => {
 export const CreateAddText = (userDate, token) => {
   return async (dispath) => {
     try {
-      console.log(userDate);
       const body = new FormData();
       await fetch(
         `http://localhost:8090/adstext

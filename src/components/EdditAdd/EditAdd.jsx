@@ -24,16 +24,12 @@ const EditAdd = ({ setOpen }) => {
     dispatch(editAddsId(Number(params.id), dto, refresh_token));
     setOpen();
   }
- /*  SetImage = async () => {
-    dispatch(SetImage(Number(params.id), refresh_token));
-  }; */
-  function deleteImages() {
-    let dto = {
-      file_url:[file_url],
-    };
-    dispatch(dellImage(Number(params.id), dto, refresh_token,));
+  const setImage = async (e) => {
+    dispatch(SetImage(Number(params.id),e.target.files[0],refresh_token));
+  }; 
+  function deleteImages(file_url) {
+    dispatch(dellImage(Number(params.id),file_url,refresh_token));
   }
-
 
   return (
     <>
@@ -58,7 +54,7 @@ const EditAdd = ({ setOpen }) => {
                   type="text"
                   name="name"
                   id="title"
-                  placeholder={addList.title}
+                  placeholder={addList?.title}
                 />
               </div>
               <div className={s.FormNewArtBlock}>
@@ -70,25 +66,33 @@ const EditAdd = ({ setOpen }) => {
                   id="description"
                   cols="auto"
                   rows="10"
-                  placeholder={addList.description}
+                  placeholder={addList?.description}
                 ></textarea>
                 <p className={s.formNewArtP}>
                   Фотографии товара<span>не более 5 фотографий</span>
                 </p>
                 <div className={s.formNewArtBarImg} >
-                  <div className={s.formNewArtImg} onClick={deleteImages}>
-                    <label htmlFor="file_url" className={s.formNewArtImgCover}>
-                      {addList?.images?.map((item) => (
-                        <img key={item.id} id={item.id} src={`http://localhost:8090/${item?.url}`} />
+                      {addList.images.map((item) => (
+                     
+                        <img  src={`http://localhost:8090/${item?.url}`} onClick={() => deleteImages(item.url)}/>
+                       
                       ))}
+                  <div className={s.formNewArtImg}>
+                    <label htmlFor="SetImage" >
+                    <div className={s.formNewArtImgCover}>
+                      <img src="" alt="" />
+                      </div>
                       <input
                         type="file"
-                        id="file_url"
-                        name="setImages"
-                        onChange={(e) => setFiles(e.target.file_url[0])}
-                      />
+                        id="SetImage"
+                        name="file"
+                        onChange={(e) => setImage(e)}
+                        />
                     </label>
                   </div>
+
+               
+              
                 </div>
               </div>
               <div className={s.FormNewArtBlock + " " + s.blockPrice}>
@@ -98,7 +102,7 @@ const EditAdd = ({ setOpen }) => {
                   onChange={(e) => setPrice(e.target.value)}
                   type="number"
                   name="price"
-                  placeholder={addList.price}
+                  placeholder={addList?.price}
                   id="price"
                 />
                 <div className={s.formNewArtInputPriceCover}></div>

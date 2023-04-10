@@ -14,9 +14,11 @@ const Description = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const { addList: add } = useSelector((state) => state.adds);
+
+
   useEffect(() => {
-    dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
-  }, [add]);
+    dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb }))); 
+  }, []);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   function handleClick() {
@@ -31,7 +33,9 @@ const Description = () => {
   function closeModal() {
     setOpen(false);
   }
+
   const [open, setOpen] = useState(false);
+  console.log(addList);
   return (
     <>
       <div className={s.mainContainer}>
@@ -123,7 +127,9 @@ const Description = () => {
                     />
                   </div>
                   <div className={s.authorCont}>
+                  <Link to={`/sellprofile/${addList.user_id}`}>
                     <p className={s.authorName}>{addList.user?.name}</p>
+                    </Link>{" "}
                     <p className={s.authorAbout}>
                       Продает товары c августа 2021
                     </p>

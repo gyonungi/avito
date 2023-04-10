@@ -237,6 +237,12 @@ body {
     width: 500px;
     margin-bottom: 10px;
     overflow: hidden;
+    display: flex;
+}
+.formNewArtBarImg img {
+width: 90px;
+    height: 90px;
+    position: relative;
 }
 
 .formNewArtImg {
@@ -245,6 +251,7 @@ body {
     margin-right: 10px;
     position: relative;
     z-index: 0;
+    display: flex;
 }
 
 .formNewArtImg img {
@@ -257,7 +264,6 @@ body {
 }
 
 .formNewArtImgCover {
-    display: flex;
     position: absolute;
     width: 100%;
     height: 100%;

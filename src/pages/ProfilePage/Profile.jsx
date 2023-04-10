@@ -1,7 +1,7 @@
   import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { editUser, getUsers, NewPassword, SetUserAvatar } from "../../asyncAction/user";
+import { editUser, getUserAll, getUsers, NewPassword, SetUserAvatar } from "../../asyncAction/user";
 import Card from "../../components/Card/Card";
 import s from "./Profile.module.css";
 import Logo from "../../images/Logo.png";
@@ -15,9 +15,9 @@ const Profile = () => {
   const { addList } = useSelector((state) => state.adds);
   useEffect(() => {
     dispath(
-      getUsers(refresh_token, (user) => dispath(getAddsUserId(Number(user.id))))
-    );
+      getUsers(refresh_token, (user) => dispath(getAddsUserId(Number(user.id)))));
     /*     dispath(getAddsUserId(Number(user.id))); */
+    getUserAll(refresh_token)  
   }, []);
 
   const navigate = useNavigate();
