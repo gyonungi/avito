@@ -9,15 +9,20 @@ import {
 import s from "./Descrip.module.css";
 import Logo from "../../images/Logo.png";
 import EditAdd from "../../components/EdditAdd/EditAdd";
+import { getAdsCommentById } from "../../asyncAction/review";
 const Description = () => {
   const [addList, setAdd] = useState({});
+  const [showPhone, setShowPhone] = useState(false);
   const params = useParams();
   const dispatch = useDispatch();
   const { addList: add } = useSelector((state) => state.adds);
-
+  const [comments, setComments] = useState("");
 
   useEffect(() => {
-    dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb }))); 
+    dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
+    getAdsCommentById(params.id, (cb) => {
+      setComments(cb);
+    });
   }, []);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -71,8 +76,8 @@ const Description = () => {
               </div>
               <div className={s.articleImgBar}>
                 <div className={s.articleImgBarDiv}>
-                  {addList?.images?.map((item)=>(
-                    <img src={`http://localhost:8090/${item?.url}`}/>
+                  {addList?.images?.map((item) => (
+                    <img src={`http://localhost:8090/${item?.url}`} />
                   ))}
                 </div>
               </div>
@@ -91,17 +96,17 @@ const Description = () => {
               <div className={s.articleBlock}>
                 <h3 className={s.articleTitle}> {addList.title} </h3>
                 <div className={s.articleInfo}>
-                  <p className={s.articleDate}>{addList.created_on?.split("T")[0]}</p>
+                  <p className={s.articleDate}>
+                    {addList.created_on?.split("T")[0]}
+                  </p>
                   <p className={s.articleCity}>Санкт-Петербург</p>
                   <Link to={`/rev/${addList.id}`} className={s.articleLink}>
-                    {" "}
-                    23 отзыва{" "}
+                    {comments.length} отзыва
                   </Link>
                 </div>
                 <p className={s.articlePrice}>{addList.price} ₽</p>
                 {addList.user_id === user?.id ? (
                   <div className={s.btnBlock}>
-                    {" "}
                     {open && <EditAdd setOpen={closeModal} />}
                     <button
                       onClick={() => setOpen(true)}
@@ -111,12 +116,14 @@ const Description = () => {
                     </button>
                     <button onClick={handleDell} className={s.articleBtn}>
                       Снять с публикации
-                    </button>{" "}
+                    </button>
                   </div>
                 ) : (
-                  <button className={s.articleBtn}>
-                    Показать&nbsp;телефон
-                    <span>{addList.user?.phone}</span>
+                  <button
+                    className={s.articleBtn}
+                    onClick={() => setShowPhone(!showPhone)}
+                  >
+                    {!showPhone ? "Показать телефон" : addList.user?.phone}
                   </button>
                 )}
                 <div className={s.articleAuthor}>
@@ -127,8 +134,8 @@ const Description = () => {
                     />
                   </div>
                   <div className={s.authorCont}>
-                  <Link to={`/sellprofile/${addList.user_id}`}>
-                    <p className={s.authorName}>{addList.user?.name}</p>
+                    <Link to={`/sellprofile/${addList.user_id}`}>
+                      <p className={s.authorName}>{addList.user?.name}</p>
                     </Link>{" "}
                     <p className={s.authorAbout}>
                       Продает товары c августа 2021

@@ -2,36 +2,27 @@ import { NavLink, useParams } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import s from "./sellProfile.module.css";
 import Logo from "../../images/Logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getAddsId } from "../../asyncAction/addsdescrip";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUserAdds } from "../../asyncAction/add";
 const SellProfile = () => {
-  const [addList, setAdd] = useState({}); 
+  const [addList, setAdd] = useState({});
   const params = useParams();
-  const token = document.cookie.split("=")[1];
-  const { refresh_token } = JSON.parse(token);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  const getAddsMe  =  async (id,token) => {
-    const res = await fetch(`http://localhost:8090/ads/me?id=${id}`,{
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
+  const objectToArray = (data) => {
+    return Object.keys(data).map((key) => {
+      return {
+        id: key,
+        ...data[key],
+      };
     });
-    const data = res.json();
-
-    data
-      .then((result) => {
-        /* dispatch(getAdd(result)); */
-      })
-      .catch((err) => {});
   };
   useEffect(() => {
-   /*  dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb }))); */
-    getAddsMe(Number(params.id),refresh_token)
-    dispatch(getUserAdds(Number(params.id),(cb) => setAdd({ ...cb })))
+    dispatch(getUserAdds(Number(params.id), (cb) => setAdd({ ...cb })));
   }, []);
+
+  const adds = objectToArray(addList);
+  const user = adds[0].user;
   return (
     <>
       <div className={s.mainContainer}>
@@ -56,9 +47,9 @@ const SellProfile = () => {
                     <NavLink target="_self">
                       <img
                         src={
-                          !user.avatar
+                          !user?.avatar
                             ? ""
-                            : `http://localhost:8090/${user.avatar}`
+                            : `http://localhost:8090/${user?.avatar}`
                         }
                         alt=""
                       />
@@ -67,10 +58,10 @@ const SellProfile = () => {
                 </div>
                 <div className={s.sellerRight}>
                   <h3 className={s.sellerTitle}>
-                    {user.name} {user.surname}
+                    {user?.name} {user?.surname}
                   </h3>
-                  <p className={s.sellerInf}>{user.city}</p>
-                  <p className={s.sellerCity}>{user.sells_from}</p>
+                  <p className={s.sellerInf}>{user?.city}</p>
+                  <p className={s.sellerCity}>{user?.sells_from}</p>
 
                   {/*    <div className={s.sellerImgMobBlock}>
                     <div className={s.sellerImgMob}>
@@ -82,7 +73,7 @@ const SellProfile = () => {
 
                   <button className={s.sellerBtn}>
                     Показать&nbsp;телефон
-                    <span> {user.phone}</span>
+                    <span> {user?.phone}</span>
                   </button>
                 </div>
               </div>
@@ -94,8 +85,8 @@ const SellProfile = () => {
         <div className={s.mainContent}>
           <div className="content__cards cards">
             <div className={s.cardsItem}>
-              {addList.length ? (
-                addList.map((item) => <Card key={item.id} date={item} />)
+              {adds.length ? (
+                adds.map((item) => <Card key={item.id} date={item} />)
               ) : (
                 <p>Товаров нет</p>
               )}

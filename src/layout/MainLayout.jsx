@@ -9,19 +9,19 @@ import { getUsers } from "../asyncAction/user";
 
 const MainLayout = () => {
   const dispath = useDispatch();
-  const {modalIsOpen} = useSelector((state) => state.adds)
+  const { modalIsOpen } = useSelector((state) => state.adds);
   useEffect(() => {
     const token = document.cookie.split("=")[1];
     if (token) {
       dispath(refreshToken(JSON.parse(token)));
-    dispath(getUsers(JSON.parse(token).refresh_token)) 
+      dispath(getUsers(JSON.parse(token).refresh_token));
     }
-  },[]);
+  }, []);
 
   return (
     <div className="container">
       <Header />
-      {modalIsOpen && <CreateAdds/>}
+      {modalIsOpen && <CreateAdds />}
       <Outlet></Outlet>
       <Footer />
     </div>

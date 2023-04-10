@@ -1,29 +1,24 @@
 import s from "./Reviews.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   AddReviewId,
-  getAddReview,
-  getAddReviewId,
+  getAdsCommentById,
 } from "../../asyncAction/review";
 import { useParams } from "react-router-dom";
 const Reviews = () => {
-  const [review, setReview] = useState({});
+  const [comments, setComments] = useState("");
+
   const dispatch = useDispatch();
   const params = useParams();
 
   const token = document.cookie.split("=")[1];
   const { refresh_token } = JSON.parse(token);
-  console.log(review);
   useEffect(() => {
-    dispatch(getAddReview(refresh_token));
-    dispatch(
-      getAddReviewId(Number(params.id), (cb) => {
-        setReview({ ...cb });
-      })
-    );
+    getAdsCommentById(params.id, (cb) => {
+      setComments(cb);
+    });
   }, []);
-  
   function UserReviews(e) {
     e.preventDefault();
     let dto = {
@@ -63,32 +58,33 @@ const Reviews = () => {
                   Опубликовать
                 </button>
               </form>
-              {review && (
-                <div className={s.modalReviews}>
-                  <div className={s.reviewsReview}>
-                    <div className={s.reviewItem}>
-                      <div className={s.reviewLeft}>
-                        <div className={s.reviewImg}>
-                          <img
-                            src={`http://localhost:8090/${review.author?.avatar}`}
-                            alt=""
-                          />
+              {comments.length &&
+                comments.map((item) => (
+                  <div className={s.modalReviews}>
+                    <div className={s.reviewsReview}>
+                      <div className={s.reviewItem}>
+                        <div className={s.reviewLeft}>
+                          <div className={s.reviewImg}>
+                            <img
+                              src={`http://localhost:8090/${item.author?.avatar}`}
+                              alt=""
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className={s.reviewRight + " " + s.fontT}>
-                        <p className={s.reviewName}>
-                          {review.author?.name}
-                          <span>14 августа</span>
-                        </p>
-                        <h5 className={s.reviewTitle + " " + s.fontT}>
-                          Комментарий
-                        </h5>
-                        <p className={s.fontT}> {review.text} </p>
+                        <div className={s.reviewRight + " " + s.fontT}>
+                          <p className={s.reviewName}>
+                            {item.author?.name}
+                            <span>14 августа</span>
+                          </p>
+                          <h5 className={s.reviewTitle + " " + s.fontT}>
+                            Комментарий
+                          </h5>
+                          <p className={s.fontT}> {item.text} </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                ))}
             </div>
           </div>
         </div>

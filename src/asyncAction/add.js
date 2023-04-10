@@ -14,15 +14,15 @@ export const getAdds = () => {
   };
 };
 
-export const getUserAdds = (id,cb) => {
+export const getUserAdds = (id, cb) => {
   return async (dispatch) => {
-    const res = await fetch(`http://localhost:8090/ads?id=${id}`);
+    const res = await fetch(`http://localhost:8090/ads?user_id=${id}`);
     const data = res.json();
 
     data
       .then((result) => {
         dispatch(getAdd(result));
-        cb(result)
+        cb(result);
       })
       .catch((err) => {});
   };
@@ -40,19 +40,6 @@ export const getAddsUserId = (id) => {
       .catch((err) => {});
   };
 };
-
-export const getAddsMe  =  async (id) => {
-    const res = await fetch(`http://localhost:8090/ads/me`);
-    const data = res.json();
-
-    data
-      .then((result) => {
-        /* dispatch(getAdd(result)); */
-        console.log(result);
-      })
-      .catch((err) => {});
-  };
-
 
 export const toCreateAdd = (userDate, token) => {
   return async (dispatch) => {

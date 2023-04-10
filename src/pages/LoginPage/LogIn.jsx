@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { json, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Login } from "../../asyncAction/auth";
 import {
   LogDiv,
@@ -25,45 +25,44 @@ const LogIn = () => {
     dispath(
       Login(dto, (token) => {
         document.cookie = `token=${JSON.stringify(token)}; path=/;`;
-      navigate("/")
+        navigate("/");
       })
-      
     );
   }
   function handleClick() {
-    navigate("/auth/reg")
+    navigate("/auth/reg");
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Wrapper >
-    <LogDiv>
-    <ModalBlock>
-      <LogBox>
-        <div></div>
-        <LogForm onSubmit={(e) => log(e)}>
-          <Loginput
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
-            name="email"
-            id="email"
-            placeholder="email"
-          />
-          <Loginput
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Пароль"
-          />
+    <Wrapper>
+      <LogDiv>
+        <ModalBlock>
+          <LogBox>
+            <div></div>
+            <LogForm onSubmit={(e) => log(e)}>
+              <Loginput
+                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                name="email"
+                id="email"
+                placeholder="email"
+              />
+              <Loginput
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Пароль"
+              />
 
-          <LogButton>Войти</LogButton>
+              <LogButton>Войти</LogButton>
 
-          <Regbutton onClick={handleClick}>Зарегистрироваться</Regbutton>
-        </LogForm>
-      </LogBox>
-      </ModalBlock>
-    </LogDiv>
+              <Regbutton onClick={handleClick}>Зарегистрироваться</Regbutton>
+            </LogForm>
+          </LogBox>
+        </ModalBlock>
+      </LogDiv>
     </Wrapper>
   );
 };
