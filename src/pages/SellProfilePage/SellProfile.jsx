@@ -29,10 +29,9 @@ const SellProfile = () => {
   };
   useEffect(() => {
    /*  dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb }))); */
-   /*  getAddsMe(Number(params.id),refresh_token)
-    dispatch(getUserAdds(Number(params.id),(cb) => setAdd({ ...cb }))) */
+    getAddsMe(Number(params.id),refresh_token)
+    dispatch(getUserAdds(Number(params.id),(cb) => setAdd({ ...cb })))
   }, []);
-  console.log(addList);
   return (
     <>
       <div className={s.mainContainer}>
