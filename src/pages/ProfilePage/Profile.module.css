@@ -203,7 +203,30 @@
   .settingsPhone {
     width: 614px;
   }
-  
+    .settingsBtnLName{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding-top: 45px;
+    flex-direction: column;
+    }
+
+      .settingsBtnLName input::placeholder {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.3);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .settingsLName{
+     background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    padding: 13px 19px;
+  }
   .settingsBtn {
     font-size: 16px;
     line-height: 1;
@@ -385,5 +408,6 @@
               justify-content: center;
       height: 596px;
     }
+
 
   }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { SetImage, dellImage, editAddsId } from "../../asyncAction/addsdescrip";
 import s from "./EditAdd.module.css";
+import { closeRevModal } from "../../store/reducers/review";
 
 const EditAdd = ({ setOpen }) => {
   const token = document.cookie.split("=")[1];
@@ -30,14 +31,16 @@ const EditAdd = ({ setOpen }) => {
   function deleteImages(file_url) {
     dispatch(dellImage(Number(params.id),file_url,refresh_token));
   }
-
+  const handleCloseModal = () =>{
+    dispatch(closeRevModal())
+  }
   return (
     <>
       <div className={s.containerBg}>
         <div className={s.modalBlock}>
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Редактировать объявление</h3>
-            <div className={s.modalBtnClose}>
+            <div className={s.modalBtnClose} onClick={handleCloseModal}>
               <div className={s.modalBtnCloseLine}></div>
             </div>
             <form

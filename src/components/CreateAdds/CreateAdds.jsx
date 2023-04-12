@@ -9,11 +9,10 @@ import {closeModal} from "../../store/reducers/add"
  const token = document.cookie.split("=")[1];
 const { refresh_token } = JSON.parse(token);  */
 const CreateAdds = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = document.cookie.split("=")[1];
   const { refresh_token } = JSON.parse(token);
-
   function handleClick() {
     navigate("/");
   }
@@ -26,18 +25,20 @@ const CreateAdds = () => {
         price,
         files: [files],
       };
-      dispath(toCreateAdd(dto,refresh_token ));
+      dispatch(toCreateAdd(dto,refresh_token ));
+      alert("Вы создали объявление")
     } else {
       let dto = {
         title,
         description,
         price,
       };
-      dispath(CreateAddText(dto,refresh_token ));
+      dispatch(CreateAddText(dto,refresh_token ));
+      alert("Вы создали объявление")
     }
   }
   const handleCloseModal = () =>{
-    dispath(closeModal())
+    dispatch(closeModal())
   }
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -150,7 +151,7 @@ const CreateAdds = () => {
                 />
                 <div className={s.formNewArtInputPriceCover}></div>
               </div>
-
+            
               <button
                 onClick={handleClick}
                 className={s.formNewArtBtnPub}

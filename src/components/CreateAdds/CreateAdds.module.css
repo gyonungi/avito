@@ -35,7 +35,8 @@ body {
   left: calc(50% - (600px / 2));
   top: 60px;
   opacity: 1;
-
+  opacity: .9;
+  background-color: black;
 }
 .modalContent {
   display: -webkit-box;

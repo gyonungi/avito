@@ -160,12 +160,12 @@ const Profile = () => {
                       Сохранить
                     </button>
                   </form>
-                  <form onSubmit={(e)=> handelPassword(e)}>
+                  <form className={s.settingsBtnLName} onSubmit={(e)=> handelPassword(e)}>
                   <div className={s.settingsDiv}>
-                      <label for="password">Старый пароль</label>
+                      <label for="password">Старый пароль </label>
                       <input
                         onChange={(e) => setPassword(e.target.value)}
-                        className={s.settingsPhone}
+                        className={s.settingsLName}
                         id="password_1"
                         name="password_1"
                         type="password"
@@ -174,16 +174,16 @@ const Profile = () => {
                     </div>
 
                     <div className={s.settingsDiv}>
-                      <label for="newpassword">Новый Пароль</label>
+                      <label for="newpassword">Новый Пароль </label>
                       <input
                         onChange={(e) => setNewpassword(e.target.value)}
-                        className={s.settingsPhone}
+                        className={s.settingsLName}
                         id="password_2"
                         name="password_2"
                         type="password"
                         placeholder="Новый Пароль"
                       />
-                    </div>
+                       </div>
                     <button className={s.settingsBtn} id="settings-btn">
                       Сохранить
                     </button>

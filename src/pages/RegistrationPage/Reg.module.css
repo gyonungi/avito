@@ -1,0 +1,100 @@
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    background-color: #f4f5f6;
+}
+
+.RegDiv {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f4f5f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 650px;
+}
+
+.ModalBlock {
+    position: absolute;
+    z-index: 2;
+    left: calc(50% - (366px / 2));
+    top: calc(50% - (647px / 2));
+    opacity: 1;
+}
+
+.RegBox {
+    width: 366px;
+    height: 647px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 43px 42px 47px;
+}
+
+.RegForm {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    gap: 35px;
+    margin-top: 40px;
+}
+
+.Reginput {
+    font-family: 'StratosSkyeng';
+    height: 35px;
+    width: 278px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #D0CECE;   
+}
+
+.Reginput::placeholder {
+    color: #D0CECE;
+}
+
+.LogButton{
+    width: 278px;
+    height: 62px;
+    background-color: #009EE4;
+    border-radius: 6px;
+    font-family: 'StratosSkyeng';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #ffffff;
+    letter-spacing: -0.05px;
+    border: none;
+    margin-top: 15px;
+    transition: 0.3s;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .LogButton:hover {
+    background-color: #3F007D;
+}
+
+.LogButton:active {
+    background-color: #271A58;
+}

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registration } from "../../asyncAction/auth";
+import Logo from "../../images/LogoS.png"
+import s from "./Reg.module.css"
 import {
   RegDiv,
   RegBox,
   RegForm,
   Reginput,
   LogButton,
+  Wrapper,
 } from "./Registration.styled";
 
 const Registration = (props) => {
@@ -39,11 +42,16 @@ const Registration = (props) => {
   const [city, setCity] = useState("");
 
   return (
-    <RegDiv>
-      <RegBox>
-        <div></div>
-        <RegForm onSubmit={(e) => registr(e)}>
-          <Reginput
+    <div className={s.wrapper}>
+    <div className={s.RegDiv}>
+      <div className={s.ModalBlock}>
+      <div className={s.RegBox}>
+      <div className="modal__logo">
+                        <img src={Logo} alt="logo"/>
+                    </div>
+        <form className={s.RegForm} onSubmit={(e) => registr(e)}>
+          <input
+          className={s.Reginput}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             type="text"
@@ -51,7 +59,8 @@ const Registration = (props) => {
             id="email"
             placeholder="email"
           />
-          <Reginput
+          <input
+          className={s.Reginput}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             type="password"
@@ -59,7 +68,8 @@ const Registration = (props) => {
             id="password"
             placeholder="password"
           />
-          <Reginput
+          <input
+          className={s.Reginput}
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
             type="password"
@@ -67,7 +77,8 @@ const Registration = (props) => {
             id="confirm_password"
             placeholder="confirm password"
           />
-          <Reginput
+          <input
+          className={s.Reginput}
             onChange={(e) => setName(e.target.value)}
             value={name}
             type="text"
@@ -75,7 +86,8 @@ const Registration = (props) => {
             id="Name"
             placeholder="Name (optional)"
           />
-          <Reginput
+          <input
+          className={s.Reginput}
             onChange={(e) => setSurname(e.target.value)}
             value={surname}
             type="text"
@@ -83,7 +95,8 @@ const Registration = (props) => {
             id="surname"
             placeholder="Surname (optional)"
           />
-          <Reginput
+          <input
+          className={s.Reginput}
             onChange={(e) => setCity(e.target.value)}
             value={city}
             type="text"
@@ -92,10 +105,12 @@ const Registration = (props) => {
             placeholder="Сity (optional)"
           />
 
-          <LogButton onClick={handleClick}>Зарегистрироваться</LogButton>
-        </RegForm>
-      </RegBox>
-    </RegDiv>
+          <button className={s.LogButton} onClick={handleClick}>Зарегистрироваться</button>
+        </form>
+      </div>
+      </div>
+    </div>
+    </div>
   );
 };
 

@@ -11,9 +11,17 @@ const Main = () => {
     dispatch(getAdds());
   }, []);
   const { addList } = useSelector((state) => state.adds);
-
+  const objectToArray = (data) => {
+    return Object.keys(data).map((key) => {
+      return {
+        id: key,
+        ...data[key],
+      };
+    });
+  };
+  const adds = objectToArray(addList);
   const [filterText, setFilterText] = useState("");
-  const filteredItems = addList.filter((item) =>
+  const filteredItems = adds.filter((item) =>
     item.title?.toLocaleLowerCase().includes(filterText)
   );
 

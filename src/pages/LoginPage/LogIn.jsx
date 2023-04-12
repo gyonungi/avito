@@ -2,16 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../../asyncAction/auth";
-import {
-  LogDiv,
-  LogBox,
-  LogForm,
-  Loginput,
-  LogButton,
-  Regbutton,
-  Wrapper,
-  ModalBlock,
-} from "./LogIn.styled.js";
+import s from "./Login.module.css";
+import Logo from "../../images/LogoS.png";
+
 
 const LogIn = () => {
   const dispath = useDispatch();
@@ -35,20 +28,22 @@ const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Wrapper>
-      <LogDiv>
-        <ModalBlock>
-          <LogBox>
-            <div></div>
-            <LogForm onSubmit={(e) => log(e)}>
-              <Loginput
+    <div className={s.wrapper}>
+      <div className={s.LogDiv}>
+        <div className={s.ModalBlock}>
+          <div className={s.LogBox}>
+            <div className={s.modalLogo}>
+              <img src={Logo} alt="logo" />
+            </div>
+            <form className={s.LogForm} onSubmit={(e) => log(e)}>
+              <input className={s.Loginput}
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 name="email"
                 id="email"
                 placeholder="email"
               />
-              <Loginput
+              <input className={s.Loginput}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 name="password"
@@ -56,14 +51,14 @@ const LogIn = () => {
                 placeholder="Пароль"
               />
 
-              <LogButton>Войти</LogButton>
+              <button className={s.LogButton} >Войти</button>
 
-              <Regbutton onClick={handleClick}>Зарегистрироваться</Regbutton>
-            </LogForm>
-          </LogBox>
-        </ModalBlock>
-      </LogDiv>
-    </Wrapper>
+              <button className={s.Regbutton} onClick={handleClick}>Зарегистрироваться</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

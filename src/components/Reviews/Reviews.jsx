@@ -26,6 +26,10 @@ const Reviews = () => {
     };
     dispatch(AddReviewId(Number(params.id), dto, refresh_token));
   }
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
+
   const [text, setUserReview] = useState("");
   return (
     <>
@@ -54,7 +58,7 @@ const Reviews = () => {
                     placeholder="Введите описание"
                   />
                 </div>
-                <button className={s.formNewArtBtnPub} id="btnPublish">
+                <button onClick={refreshPage} className={s.formNewArtBtnPub} id="btnPublish">
                   Опубликовать
                 </button>
               </form>

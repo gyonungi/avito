@@ -10,6 +10,7 @@ import s from "./Descrip.module.css";
 import Logo from "../../images/Logo.png";
 import EditAdd from "../../components/EdditAdd/EditAdd";
 import { getAdsCommentById } from "../../asyncAction/review";
+import {openRevModal} from "../../store/reducers/review"
 const Description = () => {
   const [addList, setAdd] = useState({});
   const [showPhone, setShowPhone] = useState(false);
