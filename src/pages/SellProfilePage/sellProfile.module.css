@@ -254,4 +254,6 @@ a {
   
   .cardsItem {
     margin: 0;
+    display: flex;
+    gap:30px
   }

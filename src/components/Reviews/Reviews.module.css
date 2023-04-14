@@ -26,13 +26,17 @@ body {
   height: 100vh;
   margin: 0 auto;
   position: relative;
-  background-color: #f4f5f6;
+  position: absolute;
+  z-index: 5;
+  left: calc(50% - (600px / 2));
+  top: 60px;
+  opacity: 1;
 }
 
 .modalBlock {
-  position: absolute;
+  position: relative;
   z-index: 5;
-  left: calc(50% - (800px / 2));
+  left: calc(50% - (600px / 2));
   top: 60px;
   opacity: 1;
 }
@@ -54,6 +58,7 @@ body {
   background-color: #ffffff;
   border-radius: 12px;
   position: relative;
+  background: rgba(255,255,255,0.5);
 }
 
 .modalTitle {

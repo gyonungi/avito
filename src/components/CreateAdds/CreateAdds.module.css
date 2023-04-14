@@ -35,8 +35,6 @@ body {
   left: calc(50% - (600px / 2));
   top: 60px;
   opacity: 1;
-  opacity: .9;
-  background-color: black;
 }
 .modalContent {
   display: -webkit-box;
@@ -55,6 +53,7 @@ body {
   background-color: #ffffff;
   border-radius: 12px;
   position: relative;
+  background: rgba(0,0,0,0.5);
 }
 .modalTitle {
   font-size: 32px;

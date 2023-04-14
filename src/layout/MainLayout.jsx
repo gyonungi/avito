@@ -11,20 +11,18 @@ import Reviews from "../components/Reviews/Reviews";
 const MainLayout = () => {
   const dispath = useDispatch();
   const { modalIsOpen } = useSelector((state) => state.adds);
-  const { openRevModal } = useSelector((state) => state.reviews);
+  const token = document.cookie.split("=")[1];
+  if (token) {
+    dispath(refreshToken(JSON.parse(token)));
+    dispath(getUsers(JSON.parse(token).refresh_token));
+    console.log("error");
+  }
   useEffect(() => {
-    const token = document.cookie.split("=")[1];
-    if (token) {
-      dispath(refreshToken(JSON.parse(token)));
-      dispath(getUsers(JSON.parse(token).refresh_token));
-    }
   }, []);
-
   return (
     <div className="container">
       <Header />
       {modalIsOpen && <CreateAdds />}
-      {openRevModal && <Reviews />}
       <Outlet></Outlet>
       <Footer />
     </div>

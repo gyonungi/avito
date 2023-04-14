@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import s from "./sellProfile.module.css";
 import Logo from "../../images/Logo.png";
@@ -9,6 +9,7 @@ const SellProfile = () => {
   const [addList, setAdd] = useState({});
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const objectToArray = (data) => {
     return Object.keys(data).map((key) => {
       return {
@@ -22,7 +23,11 @@ const SellProfile = () => {
   }, []);
 
   const adds = objectToArray(addList);
-  const user = adds[0].user;
+  const user = adds[0]?.user;
+
+  function handleClick() {
+    navigate("/");
+  }
   return (
     <>
       <div className={s.mainContainer}>
@@ -32,7 +37,7 @@ const SellProfile = () => {
               <img className={s.menuLogoImg} src={Logo} alt="logo" />
             </NavLink>
             <form className={s.menuForm} action="#">
-              <button className={s.menuBtn} id="btnGoBack">
+              <button className={s.menuBtn}  onClick={handleClick} id="btnGoBack">
                 Вернуться на&nbsp;главную
               </button>
             </form>

@@ -11,6 +11,7 @@ import Logo from "../../images/Logo.png";
 import EditAdd from "../../components/EdditAdd/EditAdd";
 import { getAdsCommentById } from "../../asyncAction/review";
 import {openRevModal} from "../../store/reducers/review"
+import Reviews from "../../components/Reviews/Reviews";
 const Description = () => {
   const [addList, setAdd] = useState({});
   const [showPhone, setShowPhone] = useState(false);
@@ -18,6 +19,7 @@ const Description = () => {
   const dispatch = useDispatch();
   const { addList: add } = useSelector((state) => state.adds);
   const [comments, setComments] = useState("");
+  const [openRev,setOpenRev] = useState(false);
 
   useEffect(() => {
     dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
@@ -36,20 +38,20 @@ const Description = () => {
     dispatch(deleteAddsId(Number(params.id), refresh_token));
     navigate("/");
   }
+  const closeRevModal = () => setOpenRev(false)
   function closeModal() {
     setOpen(false);
   }
-
   const [open, setOpen] = useState(false);
   console.log(addList);
   return (
     <>
+    {openRev && <Reviews id={addList.id} cbs={closeRevModal}/>}
       <div className={s.mainContainer}>
         <div className={s.mainMenu}>
           <NavLink className={s.menuLogoLink}>
             <img className={s.menuLogoImg} src={Logo} alt="logo" />
           </NavLink>
-
           <form className={s.menuForm} action="#">
             <button
               onClick={handleClick}
@@ -101,9 +103,9 @@ const Description = () => {
                     {addList.created_on?.split("T")[0]}
                   </p>
                   <p className={s.articleCity}>Санкт-Петербург</p>
-                  <Link to={`/rev/${addList.id}`} className={s.articleLink}>
+                  <div onClick={()=> setOpenRev(true)} className={s.articleLink}>
                     {comments.length} отзыва
-                  </Link>
+                  </div>
                 </div>
                 <p className={s.articlePrice}>{addList.price} ₽</p>
                 {addList.user_id === user?.id ? (

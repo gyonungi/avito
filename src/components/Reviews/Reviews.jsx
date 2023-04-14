@@ -6,7 +6,7 @@ import {
   getAdsCommentById,
 } from "../../asyncAction/review";
 import { useParams } from "react-router-dom";
-const Reviews = () => {
+const Reviews = ({id,cbs}) => {
   const [comments, setComments] = useState("");
 
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Reviews = () => {
   const token = document.cookie.split("=")[1];
   const { refresh_token } = JSON.parse(token);
   useEffect(() => {
-    getAdsCommentById(params.id, (cb) => {
+    getAdsCommentById(id, (cb) => {
       setComments(cb);
     });
   }, []);
@@ -24,7 +24,7 @@ const Reviews = () => {
     let dto = {
       text,
     };
-    dispatch(AddReviewId(Number(params.id), dto, refresh_token));
+    dispatch(AddReviewId(Number(id), dto, refresh_token));
   }
   const refreshPage = ()=>{
     window.location.reload();
@@ -37,7 +37,7 @@ const Reviews = () => {
         <div className={s.modalBlock}>
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Отзывы о товаре</h3>
-            <div className={s.modalBtnClose}>
+            <div className={s.modalBtnClose} onClick={()=> cbs()}>
               <div className={s.modalBtnCloseLine}></div>
             </div>
             <div className={s.modalScroll}>
