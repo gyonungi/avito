@@ -8,6 +8,7 @@ import {
 import { useParams } from "react-router-dom";
 const Reviews = ({id,cbs}) => {
   const [comments, setComments] = useState("");
+  const [text, setUserReview] = useState("");
 
   const dispatch = useDispatch();
   const params = useParams();
@@ -30,7 +31,6 @@ const Reviews = ({id,cbs}) => {
     window.location.reload();
  }
 
-  const [text, setUserReview] = useState("");
   return (
     <>
       <div className={s.containerBg}>

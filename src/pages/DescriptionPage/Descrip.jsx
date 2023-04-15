@@ -12,6 +12,7 @@ import EditAdd from "../../components/EdditAdd/EditAdd";
 import { getAdsCommentById } from "../../asyncAction/review";
 import {openRevModal} from "../../store/reducers/review"
 import Reviews from "../../components/Reviews/Reviews";
+import { closeModal } from "../../store/reducers/add";
 const Description = () => {
   const [addList, setAdd] = useState({});
   const [showPhone, setShowPhone] = useState(false);
@@ -20,6 +21,7 @@ const Description = () => {
   const { addList: add } = useSelector((state) => state.adds);
   const [comments, setComments] = useState("");
   const [openRev,setOpenRev] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getAddsId(Number(params.id), (cb) => setAdd({ ...cb })));
@@ -31,18 +33,17 @@ const Description = () => {
   const navigate = useNavigate();
   function handleClick() {
     navigate("/");
-  }
+  } 
   const token = document.cookie.split("=")[1];
-  const { refresh_token } = JSON.parse(token);
+  const { refresh_token } = JSON.parse(token || "{}");
   function handleDell() {
     dispatch(deleteAddsId(Number(params.id), refresh_token));
     navigate("/");
   }
   const closeRevModal = () => setOpenRev(false)
-  function closeModal() {
+  function closeModals() {
     setOpen(false);
   }
-  const [open, setOpen] = useState(false);
   console.log(addList);
   return (
     <>
@@ -110,7 +111,7 @@ const Description = () => {
                 <p className={s.articlePrice}>{addList.price} ₽</p>
                 {addList.user_id === user?.id ? (
                   <div className={s.btnBlock}>
-                    {open && <EditAdd setOpen={closeModal} />}
+                    {open && <EditAdd setOpen={closeModals} />}
                     <button
                       onClick={() => setOpen(true)}
                       className={s.articleBtnReg}
