@@ -9,17 +9,17 @@ import { useParams } from "react-router-dom";
 const Reviews = ({id,cbs}) => {
   const [comments, setComments] = useState("");
   const [text, setUserReview] = useState("");
-
+  const [value,setValue] = useState({});
   const dispatch = useDispatch();
   const params = useParams();
 
   const token = document.cookie.split("=")[1];
-  const { refresh_token } = JSON.parse(token);
+  const { refresh_token } = JSON.parse(token || "{}");
   useEffect(() => {
     getAdsCommentById(id, (cb) => {
       setComments(cb);
     });
-  }, []);
+  }, [comments]);
   function UserReviews(e) {
     e.preventDefault();
     let dto = {
@@ -27,10 +27,9 @@ const Reviews = ({id,cbs}) => {
     };
     dispatch(AddReviewId(Number(id), dto, refresh_token));
   }
-  const refreshPage = ()=>{
-    window.location.reload();
- }
-
+  const refresh = ()=>{
+    setValue({});
+  }
   return (
     <>
       <div className={s.containerBg}>
@@ -58,7 +57,7 @@ const Reviews = ({id,cbs}) => {
                     placeholder="Введите описание"
                   />
                 </div>
-                <button onClick={refreshPage} className={s.formNewArtBtnPub} id="btnPublish">
+                <button onClick={refresh} className={s.formNewArtBtnPub} id="btnPublish">
                   Опубликовать
                 </button>
               </form>
