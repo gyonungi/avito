@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getUserAdds } from "../../asyncAction/add";
 const SellProfile = () => {
   const [addList, setAdd] = useState({});
+  const [showPhone, setShowPhone] = useState(false);
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,9 +77,9 @@ const SellProfile = () => {
                     </div>
                   </div> */}
 
-                  <button className={s.sellerBtn}>
-                    Показать&nbsp;телефон
-                    <span> {user?.phone}</span>
+                  <button className={s.sellerBtn} onClick={() => setShowPhone(!showPhone)}
+                  >
+                    {!showPhone ? "Показать телефон" : user?.phone}
                   </button>
                 </div>
               </div>

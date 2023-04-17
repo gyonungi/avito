@@ -27,9 +27,7 @@ body {
   margin: 0 auto;
   position: relative;
   z-index: 5;
-  padding-left: 900px;
   top: 60px;
-  opacity: 1;
 }
 
 .modalBlock {
@@ -37,7 +35,6 @@ body {
   z-index: 5;
   left: calc(50% - (600px / 2));
   top: 60px;
-  opacity: 1;
 }
 
 .modalContent {
@@ -57,7 +54,6 @@ body {
   background-color: #ffffff;
   border-radius: 12px;
   position: relative;
-  background: rgba(255,255,255,0.5);
 }
 
 .modalTitle {
