@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom"
+import Footer from "../components/Footer/Footer";
 
 const AuthLayot =  ( ) => {
 
@@ -8,7 +9,7 @@ const AuthLayot =  ( ) => {
                     
                 </Outlet>
 
-
+                <Footer/>
             </div>
 
     )

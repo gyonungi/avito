@@ -38,7 +38,7 @@ const Main = () => {
         </NavLink>
 
         <NavLink className={s.searchLogoMobLink}>
-          <img className={s.searchLogoImg} src={Logo} alt="logo" />
+          <img className={s.searchLogoMobImg} src={Logo} alt="logo" />
         </NavLink>
         <img className={s.searchLogoImg} src={Logo} alt="logo" />
         <form className={s.searchForm} action="#">
@@ -50,6 +50,10 @@ const Main = () => {
             value={filterText}
             onChange={(e) => setFilterText(e.target.value.toLocaleLowerCase())}
           />
+          <input 
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value.toLocaleLowerCase())}
+          class={s.searchTextMob} type="search" placeholder="Поиск" name="search-mob"></input>
           {/* < class="searchTextMob" type="search" placeholder="Поиск" name="search-mob"/> */}
           <button className={s.searchBtn}>Найти</button>
         </form>

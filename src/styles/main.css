@@ -61,3 +61,11 @@ body {
     margin: 0 auto;
   }
 }
+
+@media screen and (max-width: 590px) {
+  .container {
+    width: 100%;
+    min-width: 320px;
+    background-color: #ffffff;
+  }
+}

@@ -307,3 +307,17 @@ body {
 .reviewTitle {
   font-weight: 600;
 }
+@media screen and (max-width: 590px) {
+
+.containerBg{
+  padding-right: 40px;
+}
+.modalBlock{
+  max-width: 200px;
+  height: 100px;
+}
+.formNewArtBlock{
+  border: 1px solid #D9D9D9;
+border-radius: 20px;
+}
+}

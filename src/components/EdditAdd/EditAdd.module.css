@@ -379,3 +379,23 @@ width: 90px;
 .formNewArtBtnPub:hover {
     background-color: #0080c1;
 }
+
+
+@media screen and (max-width: 590px) {
+   .containerBg{
+    position: fixed;
+    padding-right: 549px;
+    top: 416px;
+   }
+   .formNewArtInputPrice{
+    padding-right: 40px;
+   }
+   .formNewArtInput{
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
+   }
+   .formNewArtArea{
+    border: 1px solid #D9D9D9;
+    border-radius: 15px;
+   }
+      }

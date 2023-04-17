@@ -27,7 +27,7 @@ const Card = ({ date }) => {
             />
           </NavLink>
         </div>
-        <div className="card__content">
+        <div className={s.cardContent}>
           <Link to={`/ads/${date?.id}`}>
             <h3 className={s.cardTitle}>{ formatTitle (date?.title)}</h3>
           </Link>
