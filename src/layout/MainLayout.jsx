@@ -15,7 +15,6 @@ const MainLayout = () => {
   if (token) {
     dispath(refreshToken(JSON.parse(token)));
     dispath(getUsers(JSON.parse(token).refresh_token));
-    console.log("error");
   }
   useEffect(() => {
   }, []);

@@ -61,6 +61,7 @@ const Reviews = ({id,cbs}) => {
                   Опубликовать
                 </button>
               </form>
+              <div className={s.scroll}>
               {comments.length &&
                 comments.map((item) => (
                   <div className={s.modalReviews}>
@@ -71,7 +72,7 @@ const Reviews = ({id,cbs}) => {
                             <img
                               src={`http://localhost:8090/${item.author?.avatar}`}
                               alt=""
-                            />
+                            />                      
                           </div>
                         </div>
                         <div className={s.reviewRight + " " + s.fontT}>
@@ -88,6 +89,7 @@ const Reviews = ({id,cbs}) => {
                     </div>
                   </div>
                 ))}
+                </div>
             </div>
           </div>
         </div>

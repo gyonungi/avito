@@ -1,7 +1,8 @@
 const initialState = {
   review: [],
   error: null,
-  modalRevIsOpen:false,
+  modalRevIsOpen: false,
+  modalbackground: false,
 };
 
 export const reviewReducers = (state = initialState, actions) => {
@@ -16,26 +17,42 @@ export const reviewReducers = (state = initialState, actions) => {
         ...state,
         error: actions.payload,
       };
-      case "OPEN_REVMODAL":
-        return {
-           ...state,
-           modalRevIsOpen:true,
-         }
-         case "CLOSE_REVMODAL":
-          return {
-             ...state,
-             modalRevIsOpen:false,
-           }
+    case "OPEN_REVMODAL":
+      return {
+        ...state,
+        modalRevIsOpen: true,
+      };
+    case "CLOSE_REVMODAL":
+      return {
+        ...state,
+        modalRevIsOpen: false,
+      };
+    case "OPEN_BACKMODAL":
+      return {
+        ...state,
+        modalbackground: true,
+      };
+    case "SET_BACKMODAL":
+      return {
+        ...state,
+        modalbackground: false,
+      };
     default:
       return state;
   }
 };
+export const openModals = () => ({
+  type: "OPEN_BACKMODAL",
+});
+export const setModal = () => ({
+  type: "SET_BACKMODAL",
+});
 export const openRevModal = () => ({
-  type: "OPEN_REVMODAL"
-})
+  type: "OPEN_REVMODAL",
+});
 export const closeRevModal = () => ({
-  type: "CLOSE_REVMODAL"
-})
+  type: "CLOSE_REVMODAL",
+});
 export const getReview = (payload) => ({
   type: "GET_REVIEW",
   payload,

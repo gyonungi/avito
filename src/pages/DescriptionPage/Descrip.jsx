@@ -10,7 +10,7 @@ import s from "./Descrip.module.css";
 import Logo from "../../images/Logo.png";
 import EditAdd from "../../components/EdditAdd/EditAdd";
 import { getAdsCommentById } from "../../asyncAction/review";
-import {openRevModal} from "../../store/reducers/review"
+import {openModals, openRevModal, setModal} from "../../store/reducers/review"
 import Reviews from "../../components/Reviews/Reviews";
 import { closeModal } from "../../store/reducers/add";
 const Description = () => {
@@ -28,7 +28,7 @@ const Description = () => {
     getAdsCommentById(params.id, (cb) => {
       setComments(cb);
     });
-  }, []);
+  }, [addList]);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   function handleClick() {
@@ -40,11 +40,23 @@ const Description = () => {
     dispatch(deleteAddsId(Number(params.id), refresh_token));
     navigate("/");
   }
-  const closeRevModal = () => setOpenRev(false)
   function closeModals() {
-    setOpen(false);
+    setOpen(true);
   }
-  console.log(addList);
+  const openEdit = () =>{
+    setOpen(true);
+    
+  }
+  const openModal = () => {
+    setOpenRev(true)
+    dispatch(openModals())
+    document.body.classList.add("none")
+  }
+  const closeRevModal = () => {
+    setOpenRev(false)
+   dispatch(setModal())
+   document.body.classList.remove("none")
+  }
   return (
     <>
     {openRev && <Reviews id={addList.id} cbs={closeRevModal}/>}
@@ -104,14 +116,14 @@ const Description = () => {
                     {addList.created_on?.split("T")[0]}
                   </p>
                   <p className={s.articleCity}>Санкт-Петербург</p>
-                  <div onClick={()=> setOpenRev(true)} className={s.articleLink}>
+                  <div onClick={()=> openModal()} className={s.articleLink}>
                     {comments.length} отзыва
                   </div>
                 </div>
                 <p className={s.articlePrice}>{addList.price} ₽</p>
                 {addList.user_id === user?.id ? (
                   <div className={s.btnBlock}>
-                    {open && <EditAdd setOpen={closeModals} />}
+                    {open && <EditAdd cbs={()=> setOpen(false)} />}
                     <button
                       onClick={() => setOpen(true)}
                       className={s.articleBtnReg}

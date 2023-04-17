@@ -6,7 +6,7 @@ import s from "./EditAdd.module.css";
 import { closeRevModal } from "../../store/reducers/review";
 import { closeModal } from "../../store/reducers/add";
 
-const EditAdd = ({ setOpen,cbs }) => {
+const EditAdd = ({  cbs }) => {
   const token = document.cookie.split("=")[1];
   const { refresh_token } = JSON.parse(token);
   const dispatch = useDispatch();
@@ -24,24 +24,24 @@ const EditAdd = ({ setOpen,cbs }) => {
       price,
     };
     dispatch(editAddsId(Number(params.id), dto, refresh_token));
-    setOpen();
+  cbs()
   }
   const setImage = async (e) => {
-    dispatch(SetImage(Number(params.id),e.target.files[0],refresh_token));
-  }; 
+    dispatch(SetImage(Number(params.id), e.target.files[0], refresh_token));
+  };
   function deleteImages(file_url) {
-    dispatch(dellImage(Number(params.id),file_url,refresh_token));
+    dispatch(dellImage(Number(params.id), file_url, refresh_token));
   }
-  const handleCloseModal = () =>{
-    dispatch(closeModal())
-  }
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <>
       <div className={s.containerBg}>
         <div className={s.modalBlock}>
           <div className={s.modalContent}>
             <h3 className={s.modalTitle}>Редактировать объявление</h3>
-            <div className={s.modalBtnClose}  >
+            <div className={s.modalBtnClose} onClick={() => cbs()}>
               <div className={s.modalBtnCloseLine}></div>
             </div>
             <form
@@ -75,28 +75,26 @@ const EditAdd = ({ setOpen,cbs }) => {
                 <p className={s.formNewArtP}>
                   Фотографии товара<span>не более 5 фотографий</span>
                 </p>
-                <div className={s.formNewArtBarImg} >
-                      {addList.images.map((item) => (
-                     
-                        <img  src={`http://localhost:8090/${item?.url}`} onClick={() => deleteImages(item.url)}/>
-                       
-                      ))}
+                <div className={s.formNewArtBarImg}>
+                  {addList.images.map((item) => (
+                    <img
+                      src={`http://localhost:8090/${item?.url}`}
+                      onClick={() => deleteImages(item.url)}
+                    />
+                  ))}
                   <div className={s.formNewArtImg}>
-                    <label htmlFor="SetImage" >
-                    <div className={s.formNewArtImgCover}>
-                      <img src="" alt="" />
+                    <label htmlFor="SetImage">
+                      <div className={s.formNewArtImgCover}>
+                        <img src="" alt="" />
                       </div>
                       <input
                         type="file"
                         id="SetImage"
                         name="file"
                         onChange={(e) => setImage(e)}
-                        />
+                      />
                     </label>
                   </div>
-
-               
-              
                 </div>
               </div>
               <div className={s.FormNewArtBlock + " " + s.blockPrice}>

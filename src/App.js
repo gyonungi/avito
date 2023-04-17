@@ -10,10 +10,13 @@ import Registration from "./pages/RegistrationPage/Registration";
 import SellProfile from "./pages/SellProfilePage/SellProfile";
 import Reviews from "./components/Reviews/Reviews.jsx";
 import EditAdd from "./components/EdditAdd/EditAdd";
+import { useSelector } from "react-redux";
 
 function App() {
+  const {modalbackground} = useSelector((state)=> state.reviews)
+ 
   return (
-    <>
+    <div className={modalbackground && "hide"} >
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Main />} />
@@ -29,7 +32,7 @@ function App() {
           <Route path="/auth/log" element={<LogIn />} />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 
